@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Použití databází na Webu</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<releaseinfo>Poslední modifikace: 2020-03-25 16:31:03 UTC</releaseinfo>
+<copyright>
+<year>2000–2020</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foil>
+<title>Co nás čeká</title>
+
+<itemizedlist>
+<listitem>
+<para>architektura webových databázových aplikací</para>
+</listitem>
+<listitem>
+<para>k čemu se používají databázové aplikace na Webu</para>
+</listitem>
+<listitem>
+<para>databázové servery</para>
+</listitem>
+<listitem>
+<para>relační model dat</para>
+</listitem>
+<listitem>
+<para>jazyk SQL</para>
+</listitem>
+<listitem>
+<para>spolupráce webové aplikace s databází</para>
+</listitem>
+<listitem>
+<para>problémy webových databázových aplikací</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Architektura webových databázových aplikací</title>
+
+<itemizedlist>
+<listitem>
+<para>typická třívrstvá architektura</para>
+</listitem>
+<listitem>
+<para>webový prohlížeč = velmi tenký klient</para>
+</listitem>
+<listitem>
+<para>webový server + webová aplikace = aplikační logika + generování
+prezentační vrstvy pro prohlížeč</para>
+</listitem>
+<listitem>
+<para>databázový server = databáze (někdy i část aplikační
+logiky)</para>
+</listitem>
+<listitem>
+<para>hranice jednotlivých vrstev jsou hodně volné</para>
+<itemizedlist>
+<listitem><para>díky JS může být klient i „hodně tlustý“</para></listitem>
+<listitem><para>některé databáze rovnou obsahují REST API, takže
+webový server jen zajišťuje HTTP komunikaci</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>K čemu se používají databázové aplikace na Webu</title>
+
+<itemizedlist>
+<listitem>
+<para>skoro každá webová aplikace používá nějakou databázi –
+data je potřeba někam ukládat</para>
+</listitem>
+<listitem>
+<para>podnikové informační systémy – nízké TCO, ZAC</para>
+</listitem>
+<listitem>
+<para>vyhledávací služby, katalogy, knihovny</para>
+</listitem>
+<listitem>
+<para>i chat je databázová aplikace – jednotlivé zprávy je
+potřeba někam uložit</para>
+</listitem>
+<listitem>
+<para>nižší náklady na správu, centralizovaná údržba dat a aplikace je
+snazší a levnější</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foilgroup>
+<title>Databázové servery</title>
+
+<s:foil>
+<title>Pár základních pojmů</title>
+
+<itemizedlist>
+<listitem>
+<para>SŘBD (DBMS), databáze, databázový server, SQL server</para>
+</listitem>
+<listitem>
+<para>přístup datům řídí server (na rozdíl od souborových databází
+jako MS Access, Paradox, dBase apod.)</para>
+<itemizedlist>
+<listitem>
+<para>lze zajistit současnou práci více uživatelů</para>
+</listitem>
+<listitem>
+<para>snese i velmi vysokou zátěž</para>
+</listitem>
+<listitem>
+<para>komunikace se serverem většinou probíhá po síti (nejčastěji
+TCP/IP)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>Oracle, MS SQL Server, MySQL, PostgreSQL, Sybase, DB/2,
+PostgreSQL, …</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Protokoly pro komunikaci s db serverem</title>
+
+<itemizedlist>
+<listitem>
+<para>nativní – každá aplikace má svůj protokol</para>
+<itemizedlist>
+<listitem>
+<para>lze plně využít všechny funkce databáze</para>
+</listitem>
+<listitem>
+<para>přenos aplikace na jiný databázový server je komplikovaný</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>standardizovaná rozhraní – ODBC, JDBC, PDO, …</para>
+<itemizedlist>
+<listitem>
+<para>je přidána vrstva navíc, která odstiňuje nativní protokol</para>
+</listitem>
+<listitem>
+<para>při změně databázového serveru stačí změnit ovladač</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>pro předávní příkazů se používá jazyk SQL</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Relační model dat</title>
+
+<s:foil>
+<title>Základy</title>
+
+<itemizedlist>
+<listitem>
+<para>data jsou ukládána do tabulek (relací)</para>
+</listitem>
+<listitem>
+<para>matematicky je model popsán relační algebrou</para>
+</listitem>
+<listitem>
+<para>pojmy</para>
+<itemizedlist>
+<listitem>
+<para>tabulka</para>
+</listitem>
+<listitem>
+<para>položka/atribut/sloupec – má název a typ</para>
+</listitem>
+<listitem>
+<para>záznam/řádek – je jednoznačně identifikován hodnotou
+primárního klíče</para>
+</listitem>
+<listitem>
+<para>primární klíč – nejmenší množina atributů, které
+jednoznačně identifikují záznam</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Vztahy</title>
+
+<itemizedlist>
+<listitem>
+<para>druhy</para>
+<itemizedlist>
+<listitem>
+<para>1:1</para>
+</listitem>
+<listitem>
+<para>1:N</para>
+</listitem>
+<listitem>
+<para>M:N – musí se rozložit na dva vztahy 1:N</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>v tabulkách se vztahy zaznamenávají pomocí primárních a
+cizích klíčů</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>SQL</title>
+
+<s:foil>
+<title>Úvod</title>
+
+<itemizedlist>
+<listitem>
+<para>SQL – Structured Query Language</para>
+</listitem>
+<listitem>
+<para>jednoduchý dotazovací jazyk</para>
+</listitem>
+<listitem>
+<para>většina databází implementuje standard plus nějaká
+rozšíření</para>
+</listitem>
+<listitem>
+<para>výběr dat, přidávání záznamů, mazání záznamů, modifikace
+záznamů, práce se strukturou databáze, s uživateli a právy,
+…</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>SELECT</title>
+<subtitle>Výběr dat</subtitle>
+
+<itemizedlist>
+<listitem>
+<para>příkaz SELECT vybírá data z tabulek</para>
+</listitem>
+<listitem>
+<para>vrací zase tabulku</para>
+</listitem>
+</itemizedlist>
+
+<programlisting><![CDATA[SELECT ]]><replaceable>seznam výstupních položek</replaceable><![CDATA[
+    FROM ]]><replaceable>seznam tabulek</replaceable><![CDATA[
+    WHERE ]]><replaceable>podmínka</replaceable><![CDATA[
+    GROUP BY ]]><replaceable>seznam položek</replaceable><![CDATA[
+    HAVING ]]><replaceable>skupinová podmínka</replaceable><![CDATA[
+    ORDER BY ]]><replaceable>kritéria třídění</replaceable><![CDATA[
+]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>SELECT – Příklady</title>
+
+<programlisting><![CDATA[
+SELECT * FROM Zamestnanci;
+
+SELECT Jmeno, Plat FROM Zamestnanci WHERE Plat > 10000;
+
+SELECT * FROM Zamestnanci WHERE Jmeno LIKE 'Nov%';
+
+SELECT * FROM Zamestnanci
+WHERE (Plat < 7000) AND NOT (Jmeno LIKE 'Novák %');
+
+SELECT * FROM Zamestnanci
+ORDER BY Jmeno;
+
+SELECT Nazev, Jmeno FROM Odberatele, Zamestnanci
+WHERE Odberatele.Zastupce = Zamestnanci.OsobniCislo]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>INSERT INTO</title>
+<subtitle>Přidání záznamů</subtitle>
+
+<programlisting><![CDATA[INSERT INTO ]]><replaceable>jméno tabulky</replaceable><![CDATA[
+(]]><replaceable>jméno položky</replaceable><![CDATA[, ]]><replaceable>jméno položky</replaceable><![CDATA[, …)
+VALUES (]]><replaceable>hodnota</replaceable><![CDATA[, ]]><replaceable>hodnota</replaceable><![CDATA[, …)
+
+INSERT INTO ]]><replaceable>jméno tabulky</replaceable><![CDATA[
+VALUES (]]><replaceable>hodnota</replaceable><![CDATA[, ]]><replaceable>hodnota</replaceable><![CDATA[, …)
+
+INSERT INTO Zamestnanci 
+VALUES (1023, 'Novák Jan', '561220/0235', 'Levá 13, Praha 4', 12000)]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>DELETE FROM</title>
+<subtitle>Mazání záznamů</subtitle>
+
+<programlisting><![CDATA[DELETE FROM ]]><replaceable>jméno tabulky</replaceable><![CDATA[ WHERE ]]><replaceable>podmínka</replaceable><![CDATA[
+
+DELETE FROM ]]><replaceable>jméno tabulky</replaceable><![CDATA[
+
+DELETE FROM Zamestnanci WHERE OsobniCislo = 1023;]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>UPDATE</title>
+<subtitle>Modifikace záznamů</subtitle>
+
+<programlisting><![CDATA[UPDATE ]]><replaceable>jméno tabulky</replaceable><![CDATA[
+SET ]]><replaceable>jméno položky</replaceable><![CDATA[ = ]]><replaceable>hodnota položky</replaceable><![CDATA[,
+    ]]><replaceable>jméno položky</replaceable><![CDATA[ = ]]><replaceable>hodnota položky</replaceable><![CDATA[,
+    ...
+    ]]><replaceable>jméno položky</replaceable><![CDATA[ = ]]><replaceable>hodnota položky</replaceable><![CDATA[
+WHERE ]]><replaceable>podmínka</replaceable><![CDATA[
+
+UPDATE Zamestnanci
+SET Jmeno = 'Procházková Alena'
+WHERE OsobniCislo = 1168;]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>CREATE TABLE</title>
+<subtitle>Vytvoření tabulky</subtitle>
+
+<programlisting><![CDATA[CREATE TABLE ]]><replaceable>název tabulky</replaceable><![CDATA[ (
+]]><replaceable>název položky</replaceable><![CDATA[ ]]><replaceable>typ</replaceable><![CDATA[,
+]]><replaceable>název položky</replaceable><![CDATA[ ]]><replaceable>typ</replaceable><![CDATA[,
+]]><replaceable>název položky</replaceable><![CDATA[ ]]><replaceable>typ</replaceable><![CDATA[,
+]]><replaceable>název položky</replaceable><![CDATA[ ]]><replaceable>typ</replaceable><![CDATA[,
+…)
+
+CREATE TABLE Zamestnanci (
+    OsobniCislo int NOT NULL PRIMARY KEY,
+    Jmeno       varchar(40),
+    RC          char(11),
+    Adresa      varchar(60),
+    Plat        decimal(10,2))
+
+CREATE TABLE Proj_Zam (
+    ID_Projektu char(6) NOT NULL,
+    OsobniCislo int NOT NULL,
+    PRIMARY KEY (ID_Projektu, OsobniCislo))]]></programlisting>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Využití databáze ve skriptových prostředích</title>
+
+<s:foil>
+<title>Základní princip</title>
+
+<itemizedlist>
+<listitem>
+<para>vytvoření připojení k databázi</para>
+</listitem>
+<listitem>
+<para>zaslání SQL příkazu k provedení</para>
+</listitem>
+<listitem>
+<para>zpracování výsledku</para>
+</listitem>
+<listitem>
+<para>odpojení od databáze</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Příklad práce s databází v PHP</title>
+
+<programlisting><![CDATA[<?php
+
+try 
+{
+  // připojení k databázi
+  $db = new PDO("mysql:host=localhost;dbname=test", "jméno", "heslo");
+
+  // zaslání dotazu a čtení výsledku
+  foreach ($db->query("SELECT * FROM Zamestnanci ORDER BY Jmeno") as $radka)
+  {
+    // zpracování jednotlivých řádek výsledku
+    echo $radka["OsobniCislo"], " ", $radka["Jmeno"], "<br>\n";
+  }
+}
+catch (PDOException $e)
+{
+  // obsluha případné chyby při práci s databází
+  echo "Při práci s databází došlo k chybě: " . $e->getMessage();
+}
+
+?>]]></programlisting>
+
+</s:foil>
+
+<s:foil>
+<title>Další možnosti přístupu k datům</title>
+<subtitle>ORM (Object-Relational Mapping)</subtitle>
+
+<itemizedlist>
+<listitem>
+<para>aplikace nepracuje přímo s databází, ale používá se mezivrstva,
+která zajišťuje transparentní mapování a perzistenci objektů v paměti
+na data v databázi</para>
+</listitem>
+<listitem>
+<para>programátor pracuje s objekty, nepíše přímo SQL kód</para>
+</listitem>
+<listitem>
+<para>jednodušší vývoj, menší riziko chyby a překlepu v SQL kódu</para>
+</listitem>
+<listitem>
+<para>v mezních případech může automatické mapování generovat pomalé
+dotazy a je nutný ruční zásah</para>
+</listitem>
+<listitem>
+<para>příklady: Doctrine (PHP), Hibernate (Java)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Další možnosti přístupu k datům</title>
+<subtitle>GraphQL</subtitle>
+
+<itemizedlist>
+<listitem>
+<para>dotazovací jazyk a runtime určený zejména pro API</para>
+</listitem>
+<listitem>
+<para>GraphQL umožňuje popsat data dostupná přes API a dotaz pak
+automaticky vybere a vrátí jen potřebná data v požadované
+struktuře</para>
+</listitem>
+<listitem>
+<para>není tak dopředu potřeba vymýšlet a optimilizovat API na všechny
+druhy dotazů, které bude potřeba provádět</para>
+</listitem>
+<listitem>
+<para>implementace GraphQL existují pro různá úložiště, velmi často
+operují nad klasickou relační databází</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Alternativní úložiště dat</title>
+
+<s:foil>
+<title>„NoSQL“ databáze </title>
+
+<itemizedlist>
+<listitem>
+<para>typicky jednoduché úložiště klíč/hodnota</para>
+</listitem>
+<listitem>
+<para>hodnota může obsahovat cokoliv, například strukrovaný datový
+záznam zapsaný pomocí JSON</para>
+</listitem>
+<listitem>
+<para>dotazy je potřeba „dělat ručně“, protože NoSQL nepodporuje dotazovací jazyk,
+spojení tabulek, …</para>
+</listitem>
+<listitem>
+<para>díky jednoduchosti oproti SQL-databázím teoreticky umožňuje lepší škálovatelnost</para>
+</listitem>
+<listitem>
+<para>kromě samostatných produktů tento přístup často používají
+cloudová úložiště (Amazon S3, Google Storage, …)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>XML databáze</title>
+
+<itemizedlist>
+<listitem>
+<para>relační datový model je umělý, datový model XML je v mnoha
+případech mnohem bližší modelované realitě</para>
+</listitem>
+<listitem>
+<para>do databáze se ukládají jednotlivé XML dokumenty – např. stránky
+v CMS, faktury, objednávky, …</para>
+</listitem>
+<listitem>
+<para>k dispozici jsou speciální dotazovací jazyky pro XML – XQuery,
+XPath, …</para>
+</listitem>
+<listitem>
+<para>hodí se pro aplikace, které pracují se silně strukturovanými
+daty, pro které se nehodí relační datový model</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Objektové databáze</title>
+
+<itemizedlist>
+<listitem>
+<para>databáze rovnou ukládá objekty, se kterými pracuje aplikace</para>
+</listitem>
+<listitem>
+<para>technologie se nikdy příliš nerozšířila</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>RDF databáze</title>
+
+<itemizedlist>
+<listitem>
+<para>sémantický web – databáze ukládá přímo logické výroky</para>
+</listitem>
+<listitem>
+<para>existují speciální dotazovací jazyky – SPARQL</para>
+</listitem>
+<listitem>
+<para>pro produkční nasazení „v internetovém měřítku“ zatím spíše
+nevyspělá technologie</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Problémy</title>
+
+<s:foil>
+<title>Zvyšování výkonu webových databázových aplikací</title>
+
+<itemizedlist>
+<listitem>
+<para>perzistentní spojení (connection pooling)</para>
+<itemizedlist>
+<listitem>
+<para>pozor, může dojít k překročení limitu spojení do
+databáze</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>použití databází optimalizovaných na čtení –
+portály</para>
+</listitem>
+<listitem>
+<para>vyrovnávací paměť (cache) – v případě potřeby předgenerovat co
+se dá do souborů nebo sdílené paměti</para>
+</listitem>
+<listitem>
+<para>v žádném případě nepoužívat MS Access a podobné
+<quote>rádoby</quote> databáze</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Řešení simultánního přístupu k datům</title>
+
+<itemizedlist>
+<listitem>
+<para>nelze použít klasické zamykání záznamů, protože prohlížeč
+(klient) se po každém požadavku odpojí</para>
+</listitem>
+<listitem>
+<para>problém se řeší jinak</para>
+<itemizedlist>
+<listitem>
+<para>vítězí, kdo přišel první</para>
+<itemizedlist>
+<listitem>
+<para>zamknutí záznamu
+s identifikací uživatele a časovým limitem</para>
+</listitem>
+<listitem>
+<para>vhodné pro systémy, kde je možnost kolize vysoká</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>vítězí, kdo první provede změnu</para>
+<itemizedlist>
+<listitem>
+<para>kontrola změny dat před
+jejich konečnou modifikací</para>
+</listitem>
+<listitem>
+<para>jednodušší na implementaci</para>
+</listitem>
+<listitem>
+<para>vhodné pouze pro případy, kdy je pravděpodobnost kolizí malá</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Další zdroje informací</title>
+<s:foil>
+<title>Další zdroje informací</title>
+
+<itemizedlist>
+<listitem>
+<para><link xl:href="http://dibiphp.com/">DiBi – Knihovna pro transparentní
+práci s různými databázemi v PHP</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.notorm.com/">NotORM – další zajímavý
+nástroj pro jednoduchou práci s databází v PHP</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://zdrojak.root.cz/serialy/doctrine-2/">Seriál
+o ORM frameworku Doctrine 2 pro PHP</link></para>
+</listitem>
+<listitem>
+<para><link
+xl:href="http://zdrojak.root.cz/serialy/nerelacni-databaze/">Série článků
+o různých nerelačních databázích</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.ksi.mff.cuni.cz/bigdata/">Kniha o Big
+Data a NoSQL databázích</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="https://graphql.org/learn/">Úvod do GraphQL</link></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+</s:foilgroup>
+
+</s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
+

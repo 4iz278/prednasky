@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Úvodní přednáška</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>
+<copyright>
+<year>2000–2017</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foilgroup>
+<title>Informace o kurzu</title>
+
+<s:foil>
+<title>Základní informace</title>
+
+<para>Vše důležité naleznete na adrese <link xl:href="http://4iz278.github.io/"></link></para>
+
+</s:foil>
+
+<s:foil>
+<title>Náplň kurzu</title>
+<subtitle>Přednášky</subtitle>  
+
+<itemizedlist>
+<listitem>
+<para>přehled principů, architektury a technologií nezbytných pro tvorbu webových aplikací</para>
+</listitem>
+<listitem>
+<para>principy jednotlivých technologií a možnosti jejich vzájemného kombinování</para>
+</listitem>
+<listitem>
+<para>otázky bezpečnosti a zabezpečení aplikací</para>
+</listitem>
+<listitem>
+<para>nasazení aplikací, optimalizace výkonu, …</para>
+</listitem>
+<listitem>
+<para><link xl:href="http://4iz278.github.io/prednasky">program přednášek</link></para>
+</listitem>
+<listitem>
+<para>předmět navazuje na kurz 4IZ268 – Webové technologie</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Náplň kurzu</title>
+<subtitle>Cvičení</subtitle>  
+
+<itemizedlist>
+<listitem>
+<para>praktické zvládnutí technologií:</para>
+<itemizedlist>
+<listitem>
+<para>PHP</para>
+</listitem>
+<listitem>
+<para>MySQL</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Zakončení předmětu</title>
+
+<orderedlist>
+<listitem>
+<para>vytvoření webové aplikace</para>
+<itemizedlist>
+<listitem>
+<para>hodnotí cvičící</para>
+</listitem>
+<listitem>
+<para>max. 50 bodů</para>
+</listitem>
+<listitem>
+<para>přesné požadavky se dozvíte na cvičení</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>test – termíny budou včas zveřejněny</para>
+<itemizedlist>
+<listitem>
+<para>hodnotí přednášející</para>
+</listitem>
+<listitem>
+<para>max. 40 bodů</para>
+</listitem>
+<listitem>
+<para>obsah testu: látka z přednášek a povinné četby</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>aktivita na cvičení</para>
+<itemizedlist>
+<listitem>
+<para>max. 10 bodů</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>každý dílčí požadavek je nutné splnit alespoň na 50 % bodů</para>
+</listitem>
+</orderedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Literatura</title>
+
+<itemizedlist>
+<listitem>
+<para>viz sylabus a jednotlivé přednášky</para>
+</listitem>    
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Architektura webových aplikací</title>
+
+<s:foil>
+<title>Výhody webových aplikací</title>
+
+<itemizedlist>
+<listitem>
+<para>nulová instalace – stačí spustit prohlížeč a v něm otevřít stránku s aplikací</para>
+</listitem>
+<listitem>
+<para>snadná údržba a aktualizace aplikace – vše podstatné je na „serveru“</para>
+</listitem>
+<listitem>
+<para>globální dosah – funguje všude, kde je internet</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Nevýhody webových aplikací</title>
+
+<itemizedlist>
+<listitem><para>složitý vývojářský „stack“</para>
+<itemizedlist>
+<listitem><para>frontendové technologie – HTML, CSS, JavaScript</para></listitem>
+<listitem><para>nástroje vylepšující frontendové technologie – preprocesory CSS, transpilátory JS, …</para></listitem>
+<listitem><para>backendové technologie – PHP/Ruby/Python/J2EE/.NET/Node.js</para></listitem>
+<listitem><para>protokol HTTP a jeho specifika</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>horší UX než u nativních aplikací</para></listitem>
+<listitem><para>teprve vznikající možnost tvorby aplikací fungujících i v offline režimu</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Přístupy k tvorbě aplikací</title>
+
+<itemizedlist>
+<listitem><para>server-side aplikace</para></listitem>
+<listitem><para>aplikace běžící v prohlížeči</para></listitem>
+<listitem><para>kombinace</para></listitem>
+<listitem><para>využití REST API</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+
+</s:slides>

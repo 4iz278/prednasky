@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Nástroje a přístupy pro tvorbu webových aplikací</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>
+<copyright>
+<year>2000–2016</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foilgroup>
+<title>Úvod</title>
+
+<s:foil>
+<title>Základní principy generování stránek na serveru</title>
+
+<itemizedlist>
+<listitem>
+<para>na serveru je dynamicky generováno HTML na základě požadavku uživatele</para>
+</listitem>
+<listitem>
+<para>do prohlížeče je odesílán již jen čistý HTML kód</para>
+</listitem>
+<listitem>
+<para>není potřeba žádný speciální prohlížeč, lze použít libovolný se
+základní podporou HTML</para>
+</listitem>
+<listitem>
+<para>v případě potřeby lze na serverem generovaných stránkách použít
+i klientské technologie (JavaScript)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Technologie pro dynamické generování HTML stránek</title>
+
+<itemizedlist>
+<listitem>
+<para>Server Side Includes (SSI)</para>
+</listitem>
+<listitem>
+<para>CGI skripty</para>
+</listitem>
+<listitem>
+<para>FastCGI skripty</para>
+</listitem>
+<listitem>
+<para>SAPI moduly a filtry</para>
+</listitem>
+<listitem>
+<para>Active Server Pages (ASP)</para>
+</listitem>
+<listitem>
+<para>PHP</para>
+</listitem>
+<listitem>
+<para>servlety</para>
+</listitem>
+<listitem>
+<para>Java Server Pages</para>
+</listitem>
+<listitem>
+<para>ASP.NET</para>
+</listitem>
+<listitem>
+<para>Ruby on Rails</para>
+</listitem>
+<listitem>
+<para>Django (Python)</para>
+</listitem>
+<listitem>
+<para>node.js</para>
+</listitem>
+<listitem>
+<para>… a mnoho dalších, o nichž se ani nezmíníme</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>SSI</title>
+
+<s:foil>
+<title>Server Side Includes</title>
+
+<itemizedlist>
+<listitem>
+<para>do HTML kódu se zapisují jednoduché instrukce, které zpracovává
+přímo webový server</para>
+</listitem>
+<listitem>
+<para>to, že se v souboru mají hledat SSI, se pozná podle přípony
+souboru (obvykle <filename>.shtml</filename>)</para>
+</listitem>
+<listitem>
+<para>syntaxe:</para>
+<programlisting><![CDATA[<!--#]]>příkaz<![CDATA[ ]]>parametry<![CDATA[-->]]></programlisting>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka</title>
+
+<example>
+<title>Vypsání aktuálního času</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head><title>První pokusný skript</title></head>
+<body>
+<h1>Aktuální čas: <!--#echo var="DATE_LOCAL"--></h1>
+</body>
+</html>]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Přehled příkazů</title>
+
+<variablelist>
+<varlistentry>
+<term>#include</term>
+<listitem>
+<para>načtení externího souboru</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>#fsize</term>
+<listitem>
+<para>zjištění velikosti souboru</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>#flastmod</term>
+<listitem>
+<para>zjištění času poslední modifikace souboru</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>#echo</term>
+<listitem>
+<para>vypsání obsahu proměnné – DATE_GMT, DATE_LOCAL, DOCUMENT_NAME, DOCUMENT_URI, LAST_MODIFIED, QUERY_STRING_UNESCAPED</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>#exec</term>
+<listitem>
+<para>spuštění externího programu</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>#config</term>
+<listitem>
+<para>nastavení formátu výstupu ostatních příkazů</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>CGI skripty</title>
+
+<s:foil>
+<title>Rozhraní CGI</title>
+
+<itemizedlist>
+<listitem>
+<para>CGI – Common Gateway Interface</para>
+</listitem>
+<listitem>
+<para>rozhraní definuje způsob komunikace web-serveru s aplikací</para>
+</listitem>
+<listitem>
+<para>CGI skript je program, který používá rozhraní CGI</para>
+</listitem>
+<listitem>
+<para>CGI skripty lze psát v téměř libovolném jazyce, stačí dodržet konvence rozhraní CGI</para>
+<itemizedlist>
+<listitem>
+<para>shell, Perl, C/C++, Pascal, Python, …</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>podpora CGI nebývá implicitní, musí se ve web-serveru zapnout (bezpečnost)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Předávání parametrů přes rozhraní CGI</title>
+
+<itemizedlist>
+<listitem>
+<para>existují dvě metody – GET a POST</para>
+</listitem>
+<listitem>
+<para>způsob je určen přímo v HTML formuláři</para>
+<programlisting><![CDATA[<form ... method="post">
+
+<form ... method="get">]]></programlisting>
+</listitem>
+<listitem>
+<para>metody předávání dat jsme <link xl:href="http://www.kosek.cz/vyuka/4iz278/prednasky/http/#/2">již probrali</link></para>
+</listitem>
+<listitem>
+<para>další jazyky způsob předávání dat definovaný poprvé pro CGI převzaly</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázky</title>
+
+<example>
+<title>Vypsání aktuálního času v C</title>
+<programlisting><![CDATA[#include <stdio.h>
+#include <time.h>
+
+int main()
+{
+   struct tm *aktualni_cas;
+   time_t aktualni_sekundy;
+   char s[80];
+
+   printf("Content-type: text/html\n\n");
+   printf("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head><title>První pokusný skript</title></head>
+<body>
+<h1>Aktuální čas: ");
+   time(&aktualni_sekundy);
+   aktualni_cas = localtime(&aktualni_sekundy);
+   strftime(s, 80, "%d.%l.%Y %H:%M:%S", aktualni_cas);
+   printf("%s", s);
+   printf("</h1>
+</body>
+</html>");
+   return 0;}]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázky</title>
+
+<example>
+<title>Obsluha formuláře v Perlu</title>
+<programlisting><![CDATA[#!/usr/bin/perl
+use CGI;
+
+print "Content-type: text/html\n\n";
+print <<EOF
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+<title>Obsluha formuláře</title>
+</head>
+<body>
+EOF
+;
+
+$query = new CGI;
+print "Jmenuješ se <em>", $query->param('jmeno'), "</em><br>";
+if ($query->param('vek') < 18)
+{
+    print "a jseš moc mladý na náš bar";
+}
+else
+{
+    print "a jsme rádi, že jsi přišel do našeho baru"
+}
+
+print <<EOF
+</body>
+</html>
+EOF
+]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Shrnutí</title>
+
+<itemizedlist>
+<listitem>
+<para>výhody:</para>
+<itemizedlist>
+<listitem>
+<para>pro psaní skriptů lze použít téměř libovolný jazyk</para>
+</listitem>
+<listitem>
+<para>vývojář se nemusí učit nový jazyk</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>nevýhody</para>
+<itemizedlist>
+<listitem>
+<para>pro obsluhu každého požadavku je spouštěn nový proces</para>
+</listitem>
+<listitem>
+<para>pomalé a náročné na zdroje serveru</para>
+</listitem>
+<listitem>
+<para>na více zatížených serverech nelze vůbec použít</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>FastCGI</title>
+
+<s:foil>
+<title>FastCGI</title>
+
+<itemizedlist>
+<listitem>
+<para>vylepšená varianta rozhraní CGI, snižuje zátěž serveru</para>
+</listitem>
+<listitem>
+<para>každý skript se do paměti načítá jen jednou, pak postupně
+obsluhuje další požadavky</para>
+</listitem>
+<listitem>
+<para>web-server s aplikací komunikuje pomocí TCP/IP</para>
+<itemizedlist>
+<listitem>
+<para>web-server a aplikaci je možné rozdělit na samostatné počítače</para>
+</listitem>
+<listitem>
+<para>primitivní řešení load-balancingu</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Použití FastCGI</title>
+
+<itemizedlist>
+<listitem>
+<para>na rozdíl od CGI, nepodporují FastCGI zdaleka všechny servery</para>
+</listitem>
+<listitem>
+<para>aplikace musí používat speciální knihovnu, která implementuje
+rozhraní FastCGI</para>
+<itemizedlist>
+<listitem>
+<para>C, Perl, …</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>ukázka</para>
+<programlisting><![CDATA[use FCGI;
+
+while(FCGI::accept() >= 0)  # čekání na požadavek
+{    
+   # obsluha požadavku - stejná jako v případě CGI verze
+}]]></programlisting>
+</listitem>
+<listitem>
+<para>skript je v paměti vykonáván opakovaně, musíme dávat velký pozor
+na přetečení paměti apod.</para>
+</listitem>
+<listitem>
+<para>ve skriptu můžeme používat vlastní čítač, a po určitém počtu
+obsloužených požadavků skript ukončit, web-server si ho při dalším
+požadavku sám znovu spustí</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>SAPI</title>
+
+<s:foil>
+<title>ISAPI, NSAPI, WSAPI, …</title>
+
+<itemizedlist>
+<listitem>
+<para>v průběhu času začala většina serverů nabízet kromě CGI rozhraní
+i speciálně přizpůsobené rozhraní</para>
+</listitem>
+<listitem>
+<para>dnes nejpoužívanější je ISAPI – podporují ho servery
+Microsoftu a mnohé další</para>
+</listitem>
+<listitem>
+<para>aplikace napsané pro SAPI mají většinou podobu DLL knihoven</para>
+</listitem>
+<listitem>
+<para>do paměti se podobně jako FastCGI skripty načtou při prvním
+požadavku a pak v ní již zůstanou</para>
+</listitem>
+<listitem>
+<para>nelze rozdělit aplikaci a web-server</para>
+</listitem>
+<listitem>
+<para>SAPI moduly jsou binární nativní kód – pro tvorbu si
+musíme sehnat vhodný kompilátor</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>ASP</title>
+
+<s:foil>
+<title>Active Server Pages</title>
+
+<itemizedlist>
+<listitem>
+<para>přímo do HTML kódu se zapisují jednoduché příkazy</para>
+</listitem>
+<listitem>
+<para>ASP je jen jakýsi framework</para>
+<itemizedlist>
+<listitem>
+<para>lze použít libovolný jazyk podporující Active Scripting</para>
+<itemizedlist>
+<listitem>
+<para>standardně JScript a VBScript</para>
+</listitem>
+<listitem>
+<para>třetí firmy dodávají Perl, REXX, Python</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>ve všech jazycích jsou dostupné základní objekty s důležitými
+informacemi (data z formulářů apod.)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>standardní součást webových serverů MS</para>
+</listitem>
+<listitem>
+<para>podpora jiných serverů a platforem je velice slabá</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Možnosti ASP</title>
+
+<itemizedlist>
+<listitem>
+<para>k dispozici máme všechny funkce zvoleného jazyka (bohužel
+VBScript a JScript jsou poměrně chudé jazyky)</para>
+</listitem>
+<listitem>
+<para>sada ASP objektů pro práci s</para>
+<itemizedlist>
+<listitem>
+<para>požadavkem – data z formulářů apod.</para>
+</listitem>
+<listitem>
+<para>odpovědí – nastavování hlaviček</para>
+</listitem>
+<listitem>
+<para>další pomocné objekty – aplikační a session proměnné, …</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>chybějící funkčnost se dodává pomocí COM objektů</para>
+<itemizedlist>
+<listitem>
+<para>rychlé – píší se přímo v nativním kódu</para>
+</listitem>
+<listitem>
+<para>instalace a správa aplikace není jednoduchá, protože je
+roztroušená na mnoha místech</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka</title>
+
+<example>
+<title>Vypsání aktuálního času v ASP</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head><title>První pokusný skript</title></head>
+<body>
+<h1>Aktuální čas: <%= Now() %></h1>
+</body>
+</html>]]></programlisting>
+</example>
+
+<itemizedlist>
+<listitem>
+<para><literal>&lt;% ... %&gt;</literal> – blok příkazů</para>
+</listitem>
+<listitem>
+<para><literal>&lt;%= <replaceable>výraz</replaceable>
+%&gt;</literal> – vypsání hodnoty výrazu přímo do stránky</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka</title>
+
+<example>
+<title>Obsluha dat z formuláře</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+<title>Ukázkový formulář</title>
+</head>
+<body>
+Jmenuješ se <em><%= Request("jmeno")%></em><br>
+<%
+If Request("vek") < 18 Then
+    Response.Write "a jseš moc mladý na náš bar"
+Else
+    Response.Write "a jsme rádi, že jsi přišel do našeho baru"
+End If
+%>
+</body>
+</html>]]></programlisting>
+</example>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>PHP</title>
+
+<s:foil>
+<title>Hypertextový preprocesor PHP</title>
+
+<itemizedlist>
+<listitem>
+<para>přímo do HTML kódu se zapisují jednoduché příkazy</para>
+</listitem>
+<listitem>
+<para>jednoduchá syntaxe založená na C, Perlu a Javě</para>
+</listitem>
+<listitem>
+<para>speciálně navržený jazyk pro tvorbu webových aplikací</para>
+</listitem>
+<listitem>
+<para>velmi rozsáhlá knihovna funkcí</para>
+</listitem>
+<listitem>
+<para>nezávislost na platformě – může spolupracovat s v podstatě
+libovolným serverem na libovolné platformě</para>
+</listitem>
+<listitem>
+<para>OSS – dostupný zdarma včetně zdrojových kódů</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka</title>
+
+<example>
+<title>Vypsání aktuálního času</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head><title>První pokusný skript</title></head>
+<body>
+<h1>Aktuální čas: <?php echo Date("r")?></h1>
+</body>
+</html>]]></programlisting>
+</example>
+
+<itemizedlist>
+<listitem>
+<para>pro oddělování příkazů od HTML kódu se používají znaky <literal>&lt;?php</literal> a <literal>?&gt;</literal></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka</title>
+
+<example>
+<title>Obsluha dat z formuláře</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+<title>Ukázkový formulář</title>
+</head>
+<body>
+Jmenuješ se <em><?php echo $_REQUEST["jmeno"]?></em><br>
+<?php
+if ($_REQUEST["vek"] < 18)
+{
+    echo "a jseš moc mladý na náš bar";
+}
+else
+{
+    echo "a jsme rádi, že jsi přišel do našeho baru";
+}
+?>
+</body>
+</html>]]></programlisting>
+</example>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Java a webové aplikace</title>
+
+<s:foil>
+<title>Java servlety</title>
+
+<itemizedlist>
+<listitem>
+<para>servlet je speciální třída zapsaná v jazyce Java</para>
+</listitem>
+<listitem>
+<para>servlet je spouštěn v tzv. kontejneru (web server v sobě spustí JVM nebo je přímo napsán v Javě v něm pak běží servlet)</para>
+</listitem>
+<listitem>
+<para>podobně jako u ISAPI a FastCGI zůstává servlet po prvním načtení
+v paměti a obsluhuje další požadavky</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Java Server Pages</title>
+
+<itemizedlist>
+<listitem>
+<para>do HTML kódu se zapisují příkazy Javy</para>
+</listitem>
+<listitem>
+<para>k dispozici jsou podobně jako v ASP speciální objekty pro čtení
+dat z formulářů apod.</para>
+</listitem>
+<listitem>
+<para>pro lepší oddělení designu a logiky lze definovat <quote>tag
+libraries</quote> – uživatelsky definované tagy, které volají
+předem připravené komponenty</para>
+</listitem>
+<listitem>
+<para>o spuštění JSP se stará servlet, který JSP automaticky převede
+do Javy, zkompiluje do byte-code a spustí</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka JSP</title>
+
+<example>
+<title>Vypsání aktuálního času</title>
+<programlisting><![CDATA[<%@ page language="java" import="java.text.*, java.util.*" %>
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head><title>První pokusný skript</title></head>
+<body>
+<h1>Aktuální čas: <%= new Date() %></h1>
+</body>
+</html>]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Ukázka JSP</title>
+
+<example>
+<title>Obsluha dat z formuláře</title>
+<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+<title>Ukázkový formulář</title>
+</head>
+<body>
+Jmenuješ se <em><%= request.getParameter("jmeno")%></em><br>
+<% if (Integer.parseInt(request.getParameter("vek")) < 18) { %>
+    a jseš moc mladý na náš bar
+<% } else { %>
+    a jsme rádi, že jsi přišel do našeho baru
+<% } %>
+</body>
+</html>
+]]></programlisting>
+</example>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>ASP.NET</title>
+
+<s:foil>
+<title>.NET</title>
+
+<itemizedlist>
+<listitem>
+<para>platforma Microsoftu s podobnými principy jako platforma Java</para>
+</listitem>
+<listitem>
+<para>aplikace se zdrojových kódů překládá do CIL (Common Intermediate
+Language) – obdoba javového bytecode</para>
+</listitem>
+<listitem>
+<para>o spouštění CIL se stará CLR (Common Language Runtime)</para>
+<itemizedlist>
+<listitem>
+<para>před spuštěním je vždy CIL převeden do nativního kódu (obdoba
+JIT kompilace v Javě)</para>
+</listitem>
+<listitem>
+<para>Microsoft nabízí CLR pro Windows; existují i run-time pro další systémy (např. Mono pro Linux)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>všechny jazyky, které lze kompilovat do CIL (VB.NET, Managed
+C++, C#, …) používají stejné knihovny (velká změna oproti
+předchozím verzím jazyků)</para>
+<itemizedlist>
+<listitem>
+<para>výborná podpora XML</para>
+</listitem>
+<listitem>
+<para>hlavní tři knihovny – webové služby, Web Forms (tvorba
+webových aplikací), Windows Forms (tvorba <quote>klasických</quote> aplikací)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>ASP.NET</title>
+
+<itemizedlist>
+<listitem>
+<para>s klasickými ASP nemá nic společného (kromě názvu)</para>
+</listitem>
+<listitem>
+<para>vyvíjí se jako klasická klientská aplikace – prvky
+uživatelského rozhraní a obsluha událostí (WebForms)</para>
+</listitem>
+<listitem>
+<para>ASP.NET si webový server přeloží do nativního kódu, který se
+stará o postupné zasílání HTML kódu a obsluhu formulářových dat</para>
+</listitem>
+<listitem>
+<para>vygenerovaný kód detekuje použitý prohlížeč a tomu přizpůsobí
+generovaný HTML a JavaScriptový kód</para>
+</listitem>
+<listitem>
+<para>VisualStudio.NET umožňuje aplikace vyvinout pouhým <quote>naklikáním</quote></para>
+</listitem>
+<listitem>
+<para>později byly pro ASP.NET vytvořeny další nastavby – např. ASP.NET MVC nebo Razor</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Přístupy k návrhu aplikací</title>
+
+<s:foil>
+<title>„Špagetový kód“</title>
+
+<itemizedlist>
+<listitem>
+<para>HTML kód je promíchán s aplikační logikou (příkazy)</para>
+</listitem>
+<listitem>
+<para>nepřehledné a neudržovatelné; zvláště pro větší projekty</para>
+</listitem>
+<listitem>
+<para>typické při použití čistého PHP, ASP, JSP</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Model-View-Controller (MVC)</title>
+
+<itemizedlist>
+<listitem>
+<para>je oddělena aplikační logika (model), generování výstupů pro
+uživatele (view) a průběh interakce (controller)</para>
+</listitem>
+<listitem>
+<para>velice čistý přístup, aplikace se lépe udržuje</para>
+</listitem>
+<listitem>
+<para>oddělené M-V-C znamená více práce a kódu</para>
+</listitem>
+<listitem>
+<para>např. J2EE, Spring, ASP.NET MVC, PHP s vhodným frameworkem</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Komponentové frameworky</title>
+
+<itemizedlist>
+<listitem>
+<para>aplikace se skládá z vizuálních komponent, které na pozadí
+generují odpovídající HTML (+JS) kód</para>
+</listitem>
+<listitem>
+<para>vývojář je odstíněn od webové platformy (HTML, JS, HTTP, …)</para>
+</listitem>
+<listitem>
+<para>např. ASP.NET, JSF, PHP s v hodným frameworkem (např. PRADO)</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title><quote>moderní</quote> frameworky</title>
+
+<itemizedlist>
+<listitem>
+<para>většinou staví na myšlence MVC, ale nenutí vývojáře psát
+a definovat věci, které jsou zřejmé</para>
+</listitem>
+<listitem>
+<para>např. Ruby on Rails, Django</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Výběr technologie</title>
+
+<s:foil>
+<title>Jak to funguje často v praxi</title>
+
+<itemizedlist>
+<listitem><para>místo pro danou úlohu nejlepšího řešení se vybere:</para>
+<itemizedlist>
+<listitem>
+<para>co vývojář zná</para>
+</listitem>
+<listitem>
+<para>co se ve firmě už používá</para>
+</listitem>
+<listitem>
+<para>pro co je levný hosting</para>
+</listitem>
+<listitem>
+<para>co je zrovna moderní</para>
+</listitem>
+<listitem>
+<para>…</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Rychlost provádění aplikací</title>
+
+<itemizedlist>
+<listitem>
+<para>kompilované jazyky – velmi rychlé (pokud se nepoužije
+pomalé rozhraní jako CGI)</para>
+<itemizedlist>
+<listitem>
+<para>C, C++, Pascal, Java, .NET</para>
+</listitem>
+<listitem>
+<para>FastCGI, ISAPI, servlety</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>interpretované jazyky – jsou pomalejší</para>
+<itemizedlist>
+<listitem>
+<para>Perl, ASP, PHP</para>
+</listitem>
+<listitem>
+<para>většina aplikací je jednoduchá a zdržuje je práce s databází
+– menší výkon většinou nevadí</para>
+</listitem>
+<listitem>
+<para>pro některé původně interpretované jazyky postupně vznikají kompilátory (např. HipHop for PHP) nebo virtuální stroje (HVVM pro PHP)</para>
+</listitem>
+<listitem>
+<para>rychlost lze zvýšit i udržováním předkompilovaných skriptů
+v paměti web-serveru</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Rychlost vývoje aplikací</title>
+
+<itemizedlist>
+<listitem>
+<para>kompilované jazyky – pomalá</para>
+<itemizedlist>
+<listitem>
+<para>po provedení každé změny je potřeba program rekompilovat
+(pracné a pomalé)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>interpretované</para>
+<itemizedlist>
+<listitem>
+<para>rychlé změny – stačí opravit zdrojový kód a dát v
+prohlížeči reload</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>rychlý běh aplikací a rychlý vývoj zároveň &#x2192; JSP, ASP.NET, …</para>
+<itemizedlist>
+<listitem>
+<para>programátor pracuje pouze se zdrojovým kódem skriptu</para>
+</listitem>
+<listitem>
+<para>o kompilaci se automaticky stará webový server nebo jeho modul</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Další zdroje informací</title>
+
+<s:foil>
+<title>Další zdroje informací</title>
+
+<itemizedlist>
+<listitem>
+<para><link xl:href="http://www.fastcgi.com/">FastCGI</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.archive.coreservlets.com/">příklady
+servletů a JSP</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.php.net/">PHP</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://asp.net/">ASP.NET</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.rubyonrails.org/">Ruby on Rails</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://www.djangoproject.com/">Django</link></para>
+</listitem>
+<listitem>
+<para><link
+xl:href="http://zdrojak.root.cz/clanky/javascript-na-serveru-zaciname-s-node-js/">seriál
+o Node.js</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="http://guides.rubyonrails.cz/">úvod do Ruby on Rails</link></para>
+</listitem>
+<listitem>
+<para><link
+xl:href="http://zdrojak.root.cz/clanky/django-uvod-a-instalace/">seriál o Django</link></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+</s:slides>

@@ -1,0 +1,18 @@
+#    -*- mode: org -*-
+
+* WebPerf
+** TODO Pøidat WebPack
+** TODO Pøidat CDN (CloudFlare, Netlify, ...)
+** 
+* Nasazení webových aplikací
+** Registrace domény
+*** ceny, tld
+*** doménové spekulace
+*** podobné domény
+** Web server
+*** Sdílený webhosting
+*** Dedikovaný server
+*** VPS
+*** Cloud hosting
+** CDN
+** CI/CD

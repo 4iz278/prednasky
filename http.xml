@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Protokol HTTP</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<releaseinfo>Poslední modifikace: 2020-03-05 15:23:37 UTC</releaseinfo>
+<copyright>
+<year>2000–2020</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foilgroup>
+<title>Úvod</title>
+
+<s:foil>
+<title>Co je to HTTP</title>
+
+<itemizedlist>
+<listitem>
+<para>HTTP = Hypertext Transfer Protocol</para>
+</listitem>
+      <listitem>
+	<para>protokol pro přenos objektů libovolného typu (stránky,
+obrázky, …)  mezi webovým serverem a prohlížečem</para>
+      </listitem>
+      <listitem>
+	<para>používá se i pro odesílání formulářových dat</para>
+      </listitem>
+      <listitem>
+	<para>jednoduchý aplikační protokol vystavený nad protokolem
+TCP</para>
+      </listitem>
+      <listitem>
+	<para>bezstavový protokol modelu požadavek/odpověď –
+přináší problémy pro webové aplikace</para>
+      </listitem>
+      <listitem>
+	<para>několik verzí – HTTP 0.9, HTTP 1.0, HTTP
+1.1, HTTP/2</para>
+      </listitem>
+      <listitem>
+	<para>HTTP/2 – novinka roku 2015, podpora do serverů a prohlížečů se postupně přidává</para>
+      </listitem>
+    </itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Základní model protokolu</title>
+
+<itemizedlist>
+<listitem>
+<para>(1) navázání spojení</para>
+</listitem>
+<listitem>
+<para>(2) zaslání požadavku klientem</para>
+</listitem>
+<listitem>
+<para>(3) zaslání odpovědi serverem</para>
+</listitem>
+<listitem>
+<para>(4) uzavření spojení</para>
+</listitem>
+<listitem>
+<para>pro stránky s mnoha vloženými objekty (obrázky apod.) je
+tento způsob pomalý, a proto novější verze HTTP umožňují během
+jednoho spojení vyřídit několik požadavků/odpovědí</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Struktura požadavku v HTTP 1.0 a 1.1</title>
+
+<programlisting>metoda URL_dokumentu verze_HTTP
+hlavičky
+prázdná_řádka
+
+tělo_požadavku</programlisting>
+
+<example>
+<title>Ukázka jednoduchého požadavku</title>
+<programlisting>GET /clanky/obsah.html HTTP/1.1
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.0; Windows NT)
+Host: www.server.cz
+
+</programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Metody požadavku</title>
+
+<variablelist>
+<varlistentry>
+<term>GET</term>
+<listitem>
+<para>nejběžnější – žádost o stránku, odeslání dat
+z formuláře metodou GET</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>POST</term>
+<listitem>
+<para>odeslání dat z formuláře</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>HEAD</term>
+<listitem>
+<para>zaslání samotných hlaviček odpovědi</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>PUT</term>
+<listitem>
+<para>uložení objektu (stránky, obrázku apod.) na dané URL</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>DELETE</term>
+<listitem>
+<para>smazání objektu (stránky, obrázku apod.) z daného
+URL</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>TRACE, CONNECT, OPTIONS</term>
+<listitem>
+<para>konfigurace a analýza způsobu připojení</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</s:foil>
+
+<s:foil>
+<title>Struktura odpovědi v HTTP 1.0 a 1.1</title>
+
+<programlisting>protokol stavový_kód stavové_hlášení
+hlavičky
+prázdná_řádka
+obsah_odpovědi</programlisting>
+
+<example>
+<title>Ukázka odpovědi</title>
+<programlisting><![CDATA[HTTP/1.1 200 OK
+Server: Microsoft-IIS/5.0
+Date: Wed, 06 Dec 2000 13:37:40 GMT
+X-Powered-By: PHP/4.0.3pl1
+Content-type: text/html
+
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+<title>Dobývání znalostí z databází 2000</title>
+<link rel="stylesheet" type="text/css" href="base.css">
+...
+]]></programlisting>
+</example>
+
+</s:foil>
+
+<s:foil>
+<title>Stavové kódy</title>
+
+<variablelist>
+<varlistentry>
+<term>1xx</term>
+<listitem>
+<para>informativní kód</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>2xx</term>
+<listitem>
+<para>úspěšné vyřízení požadavku</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>3xx</term>
+<listitem>
+<para>přesměrování</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>4xx</term>
+<listitem>
+<para>chyba klienta</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>5xx</term>
+<listitem>
+<para>chyba na straně serveru</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</s:foil>
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Předávání formulářových dat</title>
+
+<s:foil>
+<title>Metoda GET</title>
+
+<itemizedlist>
+<listitem><para>standardní metoda</para>
+<programlisting>&lt;form method="GET" …></programlisting>
+</listitem>
+<listitem>
+<para>před odesláním prohlížeč všechna data z formuláře zakóduje do jednoho dlouhého řetězce</para>
+<itemizedlist>
+<listitem>
+<programlisting><![CDATA[název1=hodnota1&název1=hodnota2&...]]></programlisting>
+</listitem>
+<listitem>
+<para>hodnoty polí jsou upraveny tak, aby je šlo zapsat jako součást URL</para>
+</listitem>
+<listitem>
+<para>mezera &#x2192; <literal>+</literal></para>
+<para>speciální znaky, znaky s diakritikou apod. &#x2192;
+<literal>%xx</literal>, kde <literal>xx</literal> je reprezentuje
+jednotlivé bajty z textu reprezentovaného v kódování UTF-8</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>zakódovaná data přidána za URL požadavku (za znak <literal>?</literal>)</para>
+<itemizedlist>
+<listitem>
+<para>webový server typicky předá skriptu data v proměnné prostředí <literal>QUERY_STRING</literal></para>
+</listitem>
+<listitem>
+<para>většina jazyků pro psaní webových aplikací však data zpřístupní pohodlněšjím způsobem</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Metoda POST</title>
+
+<itemizedlist>
+<listitem><para>data se kódují podobně jako při použití metody GET</para></listitem>
+<listitem><para>data se přenášejí v těle požadavku HTTP</para></listitem>
+<listitem><para>webový server data předává skriptu na jeho standardní vstup</para></listitem>
+<listitem><para>opět ve většině jazyků lze data číst pohodlně bez nutnosti parsovat standardní vstup</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Výběr metody</title>
+
+<variablelist>
+<varlistentry>
+<term>GET</term>
+<listitem><para>odeslání formuláře lze simulovat pomocí zadání URL adresy</para></listitem>
+<listitem><para>vhodné pro operace, které nemění stav backendu</para></listitem>
+<listitem><para>lze uložit do záložek, poslat emailem, …</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>POST</term>
+<listitem><para>pro větší objemy dat (nevejdou se do URL)</para></listitem>
+<listitem><para>nutné pro operace měnící stav backendu</para></listitem>
+</varlistentry>
+</variablelist>
+
+</s:foil>
+
+<s:foil>
+<title>Další možnosti</title>
+
+<itemizedlist>
+<listitem><para>standardně se formuláře odesílají jako typ <code>application/x-www-form-urlencoded</code></para></listitem>
+<listitem><para>při nahrávání souborů lze používá typ <code>multipart/form-data</code></para></listitem>
+<listitem><para>metodu lze vybrat i ručně</para>
+<programlisting><![CDATA[<form action="..." method="post" enctype="multipart/form-data">
+…
+</form>]]></programlisting>
+</listitem>
+</itemizedlist>
+
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Hlavičky</title>
+
+<s:foil>
+<title>O hlavičkách obecně</title>
+
+<itemizedlist>
+<listitem>
+<para>některé hlavičky lze použít v požadavku i
+v odpovědi</para>
+</listitem>
+<listitem>
+<para>některé jsou specifické pro požadavek, resp. odpověď</para>
+</listitem>
+<listitem>
+<para>ne všechny hlavičky jsou povinné, většina je volitelná</para>
+</listitem>
+</itemizedlist>
+</s:foil>
+
+<s:foil>
+<title>Nejdůležitější hlavičky</title>
+
+<variablelist>
+<varlistentry>
+<term>Date</term>
+<listitem>
+<para>datum a čas požadavku/odpovědi</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Content-Type</term>
+<listitem>
+<para>druh zasílaných dat</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Host</term>
+<listitem>
+<para>doménová adresa serveru – umožňuje správnou funkci více
+virtuálních serverů na jedné společné adrese</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Location</term>
+<listitem>
+<para>přesměrování na jinou stránku</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</s:foil>
+
+<s:foil>
+<title>Ovládání vyrovnávacích pamětí, proxy serverů  a načítání
+stránek</title>
+
+<variablelist>
+<varlistentry>
+<term>Cache-Control</term>
+<listitem>
+<para>řízení proxy serverů a vyrovnávacích pamětí</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Pragma</term>
+<listitem>
+<para>vyhrazeno pro nestandardní informace (nejčastěji zákaz kešování
+pro starší prohlížeče)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Expires</term>
+<listitem>
+<para>datum, kdy vyprší platnost stránky</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>If-Modified-Since</term>
+<listitem>
+<para>podmíněné načtení stránky</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Last-Modified</term>
+<listitem>
+<para>datum poslední modifikace souboru</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</s:foil>
+
+<s:foil>
+<title>Domlouvání obsahu</title>
+
+<variablelist>
+<varlistentry>
+<term>Accept</term>
+<listitem>
+<para>seznam typů dat podporovaných klientem</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Accept-Charset</term>
+<listitem>
+<para>seznam kódování, které podporuje klient</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Accept-Language</term>
+<listitem>
+<para>seznam podporovaných jazyků</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Allow</term>
+<listitem>
+<para>seznam metod, kterými je dostupný určitý objekt</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</s:foil>
+
+<s:foil>
+<title>Identifikační údaje</title>
+
+<variablelist>
+<varlistentry>
+<term>User-Agent</term>
+<listitem>
+<para>identifikace klienta</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Server</term>
+<listitem>
+<para>identifikace serveru</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Referer</term>
+<listitem>
+<para>adresa stránky, kde bylo získáno URL právě kladeného požadavku
+(lze použít pro analýzu typu <quote>odkud přišli</quote>)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>From</term>
+<listitem>
+<para>e-mailová adresa uživatele (ještě jsem neviděl prohlížeč, který
+by ji posílal;)</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</s:foil>
+
+<s:foil>
+<title>Čtení hlaviček</title>
+
+<itemizedlist>
+<listitem>
+<para>většina hlaviček je CGI rozhraním převedena na proměnné</para>
+</listitem>
+<listitem>
+<para>např. User-Agent &#x2192; <literal>$_SERVER['HTTP_USER_AGENT']</literal></para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Generování hlaviček</title>
+
+<itemizedlist>
+<listitem>
+<para>zapisují se před tělo odpovědi HTTP</para>
+</listitem>
+<listitem>
+<para>v PHP je k dispozici funkce Header:</para>
+<programlisting><![CDATA[<?php Header("Content-Type: image/gif") ?>]]></programlisting>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Praktické využití HTTP hlaviček</title>
+
+<s:foil>
+<title>Zákaz kešování stránek</title>
+
+<itemizedlist>
+<listitem>
+<para>informace na stránce se mění v čase</para>
+<itemizedlist>
+<listitem>
+<para>on-line přístup do IS</para>
+</listitem>
+<listitem>
+<para>reklamní bannery</para>
+</listitem>
+</itemizedlist>
+<programlisting>Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: datum v minulosti</programlisting>
+</listitem>
+<listitem>
+<para>používat s rozvahou, mnohdy zbytečně zatěžuje přenosové
+kapacity</para>
+</listitem>
+<listitem>
+<para>některé proxy servery hlavičky ignorují – do všech URL se
+pak musí vkládat jedinečný řetězec</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Automatické přesměrování klienta</title>
+
+<itemizedlist>
+<listitem>
+<para>při pohybu v historii stránek může dojít k nechtěnému opětovnému
+zaslání dat z formuláře</para>
+</listitem>
+<listitem>
+<para>vznikají duplicity v databázi, nebo se vypisují chybová
+hlášení</para>
+</listitem>
+<listitem>
+<para>stránka obsluhující formulář by měla být v optimálním případě
+vyřazena z historie stránek</para>
+</listitem>
+<listitem>
+<para>stránka, která posílá hlavičku <literal>Location</literal>, se do historie nezařadí</para>
+</listitem>
+<listitem>
+<para>pozor, adresa v hlavičce <literal>Location</literal> musí být absolutní</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Identifikace typu generovaných dat</title>
+
+<itemizedlist>
+<listitem>
+<para>pokud chceme skriptem generovat jiné druhy dat než HTML (např.
+obrázky, soubory ve Wordu apod.) musíme nastavit správný typ v hlavičce</para>
+</listitem>
+<listitem>
+<para>Např.: <literal>Content-Type:
+image/gif</literal></para>
+</listitem>
+<listitem>
+<para>pokud chceme vygenerovat soubor, který bude nabídnut k uložení,
+lze použít následující hlavičky</para>
+<programlisting><![CDATA[Content-type: application/octet-stream
+Content-disposition: filename=najakysoubor.dat
+]]></programlisting>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Limity HTTP</title>
+
+<s:foil>
+<title>Omezení HTTP</title>
+
+<itemizedlist>
+<listitem>
+<para>protokol HTTP je bezstavový</para>
+</listitem>
+<listitem>
+<para>server nemá stále spojení s klienty a nemůže je proto
+jednoznačně identifikovat</para>
+</listitem>
+<listitem>
+<para>velké komplikace pro webové aplikace, které vyžadují stavovou
+informaci – např. nákupní košík</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Řešení</title>
+
+<itemizedlist>
+<listitem>
+<para>přenášení údajů v URL a skrytých polí formuláře</para>
+</listitem>
+<listitem>
+<para>cookies</para>
+</listitem>
+<listitem>
+<para>session proměnné</para>
+</listitem>
+<listitem>
+<para>Web Storage</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Předávání stavových proměnných v URL a skrytých polích
+formulářů</title>
+
+<itemizedlist>
+<listitem>
+<para>nebezpečné – všechny stavové informace jsou v každém
+požadavku/odpovědi</para>
+</listitem>
+<listitem>
+<para>zbytečně zvyšuje přenosovou kapacitu</para>
+</listitem>
+<listitem>
+<para>velmi pracné na implementaci – za každý odkaz a do každého
+formuláře se musí přidat všechny stavové proměnné</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Cookies</title>
+
+<itemizedlist>
+<listitem>
+<para>krátká informace, kterou si server uloží v prohlížeči</para>
+</listitem>
+<listitem>
+<para>při následujících přístupech k témuž serveru je cookie zaslána
+zpět</para>
+</listitem>
+<listitem>
+<para>cookie je vázána na server a případně i na adresář –
+informace se nedostanou k tomu, komu nepatří</para>
+</listitem>
+<listitem>
+<para>časová platnost cookie</para>
+<itemizedlist>
+<listitem>
+<para>session cookie – platí do té doby, než se vypne
+prohlížeč</para>
+<programlisting>SetCookie('název', hodnota)</programlisting>
+</listitem>
+<listitem>
+<para>nastavena na konkrétní délku</para>
+<programlisting>SetCookie('název', hodnota, platnost)</programlisting>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>cookie třetích stran, rizika, P3P</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Předávání stavových informací pomocí cookies</title>
+
+<itemizedlist>
+<listitem>
+<para>nebezpečné – všechny stavové informace jsou v každém
+požadavku/odpovědi</para>
+</listitem>
+<listitem>
+<para>implementace je velice snadná</para>
+</listitem>
+<listitem>
+<para>podporu cookies lze v prohlížeči vypnout, proto by dobře napsaná
+aplikace měla fungovat i bez nic</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Session proměnné</title>
+
+<itemizedlist>
+<listitem>
+<para>každému novému uživateli se přiřadí unikátní identifikátor (tzv.
+session-id)</para>
+<itemizedlist>
+<listitem>
+<para>předává se s každým požadavkem pomocí cookie nebo parametrů v
+URL, resp. skrytých polí ve formuláři</para>
+</listitem>
+<listitem>
+<para>session-id je konstruováno tak, aby bylo těžko odhadnutelné
+(většinou náhodné číslo + hashovací funkce MD5 nebo SHA)</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>pro každé session-id má webový server vyhrazen prostor pro
+ukládání dat (proměnných)</para>
+<itemizedlist>
+<listitem>
+<para>sdílená paměť</para>
+</listitem>
+<listitem>
+<para>soubory</para>
+</listitem>
+<listitem>
+<para>databáze</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Předávání stavových informací pomocí session proměnných</title>
+
+<itemizedlist>
+<listitem>
+<para>poměrně bezpečné – s každým požadavkem se přenáší jen malá
+část dat a session-id</para>
+</listitem>
+<listitem>
+<para>šetří kapacitu sítě – data jsou ukládána přímo na
+web-serveru</para>
+</listitem>
+<listitem>
+<para>velice snadná implementace – většina prostředí pracuje se
+session proměnnými téměř stejně jako s běžnými proměnnými</para>
+</listitem>
+<listitem>
+<para>podpora session proměnných ve skriptových prostředích:</para>
+<itemizedlist>
+<listitem>
+<para>ASP – zabudovaná podpora, pracuje pouze s cookies</para>
+</listitem>
+<listitem>
+<para>PHP4, PHP5 – zabudovaná podpora, podporuje cookies i automatické přepisování
+URL adres</para>
+</listitem>
+<listitem>
+<para>JSP – zabudovaná podpora, podporuje cookies, velice snadno může
+podporovat i přepisování URL adres</para>
+</listitem>
+<listitem>
+<para>ASP.NET – zabudovaná podpora, podporuje cookies i automatické
+přepisování URL adres</para>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Web Storage</title>
+
+<itemizedlist>
+<listitem>
+<para>úložiště dat na klientovi</para>
+</listitem>
+<listitem>
+<para>součást HTML5, podporováno všemi moderními prohlížeči</para>
+</listitem>
+<listitem>
+<para>pojme více dat než cookies a nepřenáší se na server, data
+zůstávají u klienta a jsou přístupná pouze pomocí JavaScriptu</para>
+</listitem>
+<listitem>
+<para>localStorage – je persistentní i přes uzavření prohlížeče</para>
+</listitem>
+<listitem>
+<para>sessionStorage – platné jen po dobu jedné relace</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Další zdroje informací</title>
+
+<s:foil>
+<title>Další zdroje informací</title>
+
+<itemizedlist>
+<title>HTTP a cookies</title>
+<listitem>
+<para><link xl:href="https://tools.ietf.org/html/rfc1945">HTTP 1.0</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="https://tools.ietf.org/html/rfc2616">HTTP 1.1</link></para>
+</listitem>
+<listitem><para><link xl:href="https://http2.github.io/">HTTP/2</link></para></listitem>
+<listitem>
+<para><link xl:href="https://tools.ietf.org/html/rfc6265">Specifikace cookies</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="https://www.cookiestatus.com/">Podrobný popis nakládání s cookies v jednotlivých prohlížečích (zejména s ohledem na soukromí uživatelů)</link></para>
+</listitem>
+<listitem>
+<para><link xl:href="https://www.mnot.net/cache_docs/">Článek shrnující problematiku vyrovnávací paměti</link></para>
+</listitem>
+<listitem><para><link xl:href="http://php.net/manual/en/book.session.php">Session proměnné v PHP</link></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+</s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->

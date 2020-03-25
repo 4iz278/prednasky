@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+<uri resource="bezpecnost.xml" uri="../../../../src/db/xsl/slides/schema/relaxng/slides.rnc"/>
+<uri resource="vykon.xml" uri="../../../../src/db/xsl/slides/schema/relaxng/slides.rnc"/>
+  <uri resource="uvod.xml" uri="../../../../src/db/xsl/slides/schema/relaxng/slides.rnc"/>
+</locatingRules>

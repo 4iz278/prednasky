@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Výkon webových aplikací</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<!--<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>-->
+<copyright>
+<year>2000–2019</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foil>
+<title>Úvod</title>
+
+<itemizedlist>
+<listitem><para>stránky, které se pomalují načítají, a aplikace, která má pomalou odezvu, odradí uživatele</para></listitem>
+<listitem><para>reakce na akci uživatele do 1 sekundy – přijatelné</para></listitem>
+<listitem><para>reakce na akci uživatele trvá déle než sekundu – uživatel začne myslet na něco jiného</para></listitem>
+<listitem><para>reakce na akci uživatele trvá více než 10 sekund – uživatel obvykle odchází</para></listitem>
+<listitem><para>rychlost načítání a reakce aplikace záleží na mnoha faktorech</para>
+<itemizedlist>
+<listitem><para>rychlost a latence internetového připojení</para></listitem>
+<listitem><para>rychlost zpracování požadavku pomocí serveru</para></listitem>
+<listitem><para>rychlost vykreslení stránky</para></listitem>
+<listitem><para>počet a celkový objem požadavků nutných pro obsloužení akce uživatele</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foilgroup>
+<title>Zrychlení přenosu</title>
+
+<s:foil>
+<title>Zmenšení objemu přenášených dat</title>
+
+<itemizedlist>
+<listitem><para>nepřenášíme to, co není potřeba (např. lazy-loading obrázků do karuselu)</para></listitem>
+<listitem><para>minifikace HTML/CSS/JS kódu</para></listitem>
+<listitem><para>komprimace přenášených dat (GZIP)</para></listitem>
+<listitem><para>obrázky SVG ukládat jako komprimované (<code>.svgz</code>)</para></listitem>
+<listitem><para>optimalizace obrázků</para>
+<itemizedlist>
+<listitem><para>vhodný formát (bitmapa/vektor)</para></listitem>
+<listitem><para>jednoduché obrázky lze někdy nahradit CSS efekty</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Snížení počtu požadavků</title>
+
+<itemizedlist>
+<listitem><para>kompilace několika CSS a JS souborů do jednoho</para></listitem>
+<listitem><para>nenačítání zbytečností ze serverů třetích stran</para></listitem>
+<listitem><para>obrázkové sprity (více obrázků v jednom, správné zobrazení zajistí ořez pomocí CSS)</para></listitem>
+<listitem><para>menší obrázky lze vložit přímo do HTML stránky pomocí <code>data:</code> URL schématu</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Další možnosti</title>
+
+<itemizedlist>
+<listitem><para>načítání objektů z více domén najednou (prohlížeče respektují maximální počet paralelních požadavků na jednu doménu)</para></listitem>
+<listitem><para>ukládání „statických“ částí webu do vyrovnávací paměti prohlížeče</para></listitem>
+<listitem><para>prefetch – nápověda pro prohlížeč, na co se má připravit</para>
+<programlisting><![CDATA[<link rel="prefetch" href="http://www.example.com/">
+<link rel="dns-prefetch" href="http://example.com/">
+<link rel="prerender" href="/page/to/prerender">]]></programlisting>
+</listitem>
+<listitem><para>minimalizace přenášených hlaviček HTTP (velikost cookies, zbytečné hlavičky, …)</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>HTTP/2</title>
+
+<itemizedlist>
+<listitem><para>nová verze protokolu HTTP odstraňující zejména výkonostní problémy předchozích verzí</para></listitem>
+<listitem><para>protokol je binární, ne textový</para></listitem>
+<listitem><para>multiplexing – po jednom TCP spojení se paralelně a asynchronně přenáší více objektů</para></listitem>
+<listitem><para>server push – server může poslat do prohlížeče data dříve než si je prohlížeč vyžádá</para></listitem>
+<listitem><para>komprimace hlaviček</para></listitem>
+<listitem><para>většina „optimalizačních technik“ pro HTTP/1.x nedává při použití HTTP/2 smysl</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Vykreslení a odezva stránky</title>
+
+<s:foil>
+<title>Základní pravidla</title>
+
+<itemizedlist>
+<listitem><para>snaha o co nejjednodušší HTML/CSS/JS kód</para></listitem>
+<listitem><para>odkazy na styly CSS by měly být na začátku stránky – pro další vykreslování je potřeba mít k dispozici DOM a CSSOM</para></listitem>
+<listitem><para>dokud se nestáhne CSS, nemůže se začít s vykreslováním stránky</para></listitem>
+<listitem><para>JavaScript načítat až na konci stránky</para></listitem>
+<listitem><para>používat <code>&lt;script src="…" async></code>, které dovolí asynchronní načtení skriptu (neblokuje vytváření DOM)</para></listitem>
+<listitem><para>nepoužívat inline <code>&lt;script></code>, protože blokuje vytváření DOM</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>JavaScript Event loop</title>
+
+<itemizedlist>
+<listitem><para>události, které musí prohlížeč obsloužit, se přidávají do fronty</para></listitem>
+<listitem><para>během obsluhy jedné události se nedělá nic jiného</para></listitem>
+<listitem><para>pokud je obsluha dlouhá, zablokuje to zbytek aplikace, UI nereaguje, …</para></listitem>
+<listitem><para>většina JS API je proto asynchronních, aby k blokování docházelo co nejméně</para></listitem>
+<listitem><para>dlouhé výpočty je tak potřeba provádět buď pomocí
+WebWorkers nebo rozdělit na menší úlohy a volat postupně pomocí
+<code>setTimeout()/setInterval()/requestAnimationFrame()</code></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Zpracování požadavku na serveru</title>
+
+<s:foil>
+<title>Úzké hrdlo</title>
+
+<itemizedlist>
+<listitem><para>vždy je potřeba nejprve zjistit, co přesně vyřízení požadavku zdržuje</para></listitem>
+<listitem><para>v mnoha případech je největší zpoždění způsobeno čekáním na výsledky dotazu do databáze</para>
+<itemizedlist>
+<listitem><para>zvážit výběr databázové technologie</para></listitem>
+<listitem><para>správná konfigurace databáze (vyhledávací indexy, …)</para></listitem>
+<listitem><para>minimalizace dotazů do databáze</para></listitem>
+<listitem><para>ukládání výsledků do vyrovnávací paměti</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<example>
+<title>Využití vyrovnávací paměti <link xl:href="http://www.phpfastcache.com/">phpFastCache</link></title>
+<programlisting><![CDATA[<?php
+// Načtení knihovny
+use phpFastCache\CacheManager;
+require_once("src/phpFastCache/phpFastCache.php");
+$cache = CacheManager::Files();
+
+// pokus o načtení stránky o produktu z vyrovnávací paměti
+$products = $cache->get("product_page");
+
+if(is_null($products)) {
+    // pokud stránka ve vyrovnávací paměti není nebo je stará, načteme ji z databáze
+    $products = … načtení hodnot z databáze (pomalé) …;
+    // uložení stránky do vyrovnávací paměti
+    $cache->set("product_page",$products , 600);
+}
+
+// vrácení stránky, ve většině případů z vyrovnávací paměti
+echo $products;]]></programlisting>
+</example>
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Další zdroje informací</title>
+
+<s:foil>
+<title>Povinná četba</title>
+
+<itemizedlist>
+<listitem><para><link xl:href="https://hpbn.co/">Ilya Grigorik: High Performance Browser Networking</link></para></listitem>
+<listitem><para><link xl:href="http://designingforperformance.com/">Lara Callender Hogan: Designing for Performance</link></para></listitem>
+<listitem><para><link xl:href="https://developers.google.com/web/fundamentals/performance/">Informace na portálu Google Developers</link></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Nástroje pro „minifikaci“</title>
+
+<itemizedlist>
+<listitem><para><link xl:href="http://yui.github.io/yuicompressor/">YUI Compresor</link></para></listitem>
+<listitem><para><link xl:href="https://developers.google.com/closure/compiler/">Closure Compiler</link></para></listitem>
+<listitem><para><link xl:href="https://github.com/mishoo/UglifyJS2">UglifyJS</link></para></listitem>
+<listitem><para><link xl:href="https://webpack.js.org/">Webpack</link></para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+</s:slides>
