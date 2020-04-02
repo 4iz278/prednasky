@@ -5,9 +5,9 @@
 <title>Bezpečnost webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<!-- <releaseinfo>Poslední modifikace: $Date: $</releaseinfo> -->
+<releaseinfo>Poslední modifikace: 2020-04-02 23:10:43 UTC</releaseinfo>
 <copyright>
-<year>2000–2019</year>
+<year>2000–2020</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -286,6 +286,20 @@ bezpečnosti, např. internetové bankovnictví</para>
 </s:foil>
 
 <s:foil>
+<title>Federalizované autentizační služby</title>
+
+<itemizedlist>
+<listitem><para>decentralizovaný mechanismus pro jednotné přihlašování
+k aplikacím (SSO = single sign on)</para></listitem>
+<listitem><para>uživatel používá jednotný identifikátor v mnoha aplikacích</para></listitem>
+<listitem><para>autentizaci neprovádějí jednotlivé aplikace, ale
+poskytovatel identity</para></listitem>
+<listitem><para>příklady služeb/protokolů: SAML, OpenID, OpenID Connect</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
 <title>OpenID</title>
 
 <itemizedlist>
@@ -347,6 +361,10 @@ slovníkům otisků</para>
 <listitem>
 <para>pro výpočet otisku je lepší používat pomalé hasovací funkce pro
 ztížení útoku hrubou silou</para>
+</listitem>
+<listitem>
+<para>na straně uživatele je vhodné využívat správce hesel, který
+zajistí silná a různá hesla</para>
 </listitem>
 </itemizedlist>
 
@@ -844,3 +862,7 @@ injection pro nabourání do špatně zabezpečeného serveru</link></para>
 </s:foilgroup>
 
 </s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
