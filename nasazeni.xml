@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="file:/E:/src/db/xsl/slides/schema/relaxng/slides.rnc" type="application/relax-ng-compact-syntax"?>
+<s:slides xmlns:s="http://docbook.org/ns/docbook-slides" xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xml:lang="cs">
+<info>
+<title>Nasazení webových aplikací</title>
+<subtitle>4IZ278 – Webové aplikace</subtitle>
+<author><personname>Jirka Kosek</personname></author>
+<releaseinfo>Poslední modifikace: 2020-05-14 13:06:20 UTC</releaseinfo>
+<copyright>
+<year>2000–2020</year>
+<holder>Jiří Kosek</holder>
+</copyright>
+</info>
+
+<s:foil>
+<title>Co potřebujeme pro zveřejnění aplikace</title>
+
+<itemizedlist>
+<listitem><para>doména</para></listitem>
+<listitem><para>hosting</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Registrace domény</title>
+
+<itemizedlist>
+<listitem><para>volba správné TLD</para></listitem>
+<listitem><para>různé ceny pro různé TLD</para></listitem>
+<listitem><para>pozor na doménové spekulace a parazitování</para>
+<itemizedlist>
+<listitem><para>někdy je nutná registrace několika různých TLD</para></listitem>
+<listitem><para>registrace vizuálně podobných domén (IDN, phishing útoky)</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Hosting</title>
+
+<itemizedlist>
+<listitem><para>prostor, kde běží webový server a další komponenty
+nutné pro běh aplikace (např. databáze)</para></listitem>
+<listitem><para>sdílený hosting</para>
+<itemizedlist>
+<listitem><para>na jednom počítači je hostováno mnoho domén</para></listitem>
+<listitem><para>chyba/zátěž jedné aplikace může negativně ovlivnit ostatní</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>VPS (virtual private server)</para>
+<itemizedlist>
+<listitem><para>aplikace má k dispozici vlastní virtuální server s danými parametry</para></listitem>
+<listitem><para>aplikace je izolována od ostatních</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>dedikovaný server</para>
+<itemizedlist>
+<listitem><para>aplikace má k dispozici vlastní fyzický server</para></listitem>
+<listitem><para>vhodné, pokud výkonově VPS nestačí</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem><para>cloud hosting</para>
+<itemizedlist>
+<listitem><para>řešení, kdy je nad VPS další vrstva, která dle potřeb a zátěže dovolí vytvářet další VPS nebo upravovat parametry jednotlivých VPS</para></listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>CDN</title>
+
+<itemizedlist>
+<listitem><para>CDN = Content Delivery Network</para></listitem>
+<listitem><para>síť serverů rozmístěna po celém světě</para></listitem>
+<listitem><para>statické zdroje jsou odesílany z nejbližšího serveru
+pro rychlejší načtení stránky</para></listitem>
+<listitem><para>mnoho CDN nabízí i další služby jako např. ochranu
+proti různým typům útoků</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>Nasazení a aktualizace aplikací</title>
+
+<itemizedlist>
+<listitem><para>v jednoduchých případech stačí novou verzi kódu jen
+překopírovat na server pomocí SFTP/SCP/WebDAV/…</para></listitem>
+<listitem><para>ideální je i pro webové aplikace použít osvědčené
+metody CI/CD</para></listitem>
+<listitem><para>při aktualizaci kódu je potřeba ošetřit, aby změny
+v databázi, serverovém kódu, klientském kódu, verzích REST API, … byly
+synchronizované</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
