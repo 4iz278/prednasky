@@ -5,9 +5,9 @@
 <title>Úvodní přednáška</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>
+<releaseinfo>Poslední modifikace: 2021-02-16 11:02:34 UTC</releaseinfo>
 <copyright>
-<year>2000–2017</year>
+<year>2000–2021</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -43,7 +43,7 @@
 <para><link xl:href="http://4iz278.github.io/prednasky">program přednášek</link></para>
 </listitem>
 <listitem>
-<para>předmět navazuje na kurz 4IZ268 – Webové technologie</para>
+<para>předmět navazuje na kurz <link xl:href="http://4iz278.github.io/">4IZ268 – Webové technologie</link></para>
 </listitem>
 </itemizedlist>
 
@@ -157,12 +157,12 @@
 <itemizedlist>
 <listitem><para>frontendové technologie – HTML, CSS, JavaScript</para></listitem>
 <listitem><para>nástroje vylepšující frontendové technologie – preprocesory CSS, transpilátory JS, …</para></listitem>
-<listitem><para>backendové technologie – PHP/Ruby/Python/J2EE/.NET/Node.js</para></listitem>
+<listitem><para>backendové technologie – PHP/Ruby/Python/Java/.NET/Node.js</para></listitem>
 <listitem><para>protokol HTTP a jeho specifika</para></listitem>
 </itemizedlist>
 </listitem>
 <listitem><para>horší UX než u nativních aplikací</para></listitem>
-<listitem><para>teprve vznikající možnost tvorby aplikací fungujících i v offline režimu</para></listitem>
+<listitem><para>možnosti aplikací fungující plnohodnotně i v offline režimu se teprve rozvíjejí</para></listitem>
 </itemizedlist>
 
 </s:foil>
@@ -183,3 +183,7 @@
 
 
 </s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
