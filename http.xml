@@ -5,9 +5,9 @@
 <title>Protokol HTTP</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2020-03-05 15:23:37 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2021-02-24 13:16:34 UTC</releaseinfo>
 <copyright>
-<year>2000–2020</year>
+<year>2000–2021</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -39,10 +39,10 @@ přináší problémy pro webové aplikace</para>
       </listitem>
       <listitem>
 	<para>několik verzí – HTTP 0.9, HTTP 1.0, HTTP
-1.1, HTTP/2</para>
+1.1, HTTP/2, připravuje se HTTP/3</para>
       </listitem>
       <listitem>
-	<para>HTTP/2 – novinka roku 2015, podpora do serverů a prohlížečů se postupně přidává</para>
+	<para>HTTP/2 – novinka roku 2015, podpora většina prohlížečů a čím dál více serverů</para>
       </listitem>
     </itemizedlist>
 
