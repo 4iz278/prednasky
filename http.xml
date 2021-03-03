@@ -5,7 +5,7 @@
 <title>Protokol HTTP</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2021-02-24 13:16:34 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2021-03-03 13:56:59 UTC</releaseinfo>
 <copyright>
 <year>2000–2021</year>
 <holder>Jiří Kosek</holder>
@@ -376,14 +376,6 @@ stránek</title>
 </varlistentry>
 
 <varlistentry>
-<term>Pragma</term>
-<listitem>
-<para>vyhrazeno pro nestandardní informace (nejčastěji zákaz kešování
-pro starší prohlížeče)</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
 <term>Expires</term>
 <listitem>
 <para>datum, kdy vyprší platnost stránky</para>
@@ -392,6 +384,8 @@ pro starší prohlížeče)</para>
 
 <varlistentry>
 <term>If-Modified-Since</term>
+<term>If-Unmodified-Since</term>
+<term>If-None-Match</term>
 <listitem>
 <para>podmíněné načtení stránky</para>
 </listitem>
@@ -529,7 +523,6 @@ by ji posílal;)</para>
 </listitem>
 </itemizedlist>
 <programlisting>Cache-Control: no-cache, no-store, must-revalidate
-Pragma: no-cache
 Expires: datum v minulosti</programlisting>
 </listitem>
 <listitem>
