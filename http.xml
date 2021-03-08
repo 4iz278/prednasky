@@ -5,7 +5,7 @@
 <title>Protokol HTTP</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2021-03-03 13:56:59 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2021-03-08 09:52:48 UTC</releaseinfo>
 <copyright>
 <year>2000–2021</year>
 <holder>Jiří Kosek</holder>
@@ -719,7 +719,7 @@ URL, resp. skrytých polí ve formuláři</para>
 </listitem>
 <listitem>
 <para>session-id je konstruováno tak, aby bylo těžko odhadnutelné
-(většinou náhodné číslo + hashovací funkce MD5 nebo SHA)</para>
+(většinou náhodné číslo + hashovací funkce)</para>
 </listitem>
 </itemizedlist>
 </listitem>
