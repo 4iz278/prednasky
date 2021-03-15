@@ -5,9 +5,9 @@
 <title>Nástroje a přístupy pro tvorbu webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>
+<releaseinfo>Poslední modifikace: 2021-03-15 11:56:18 UTC</releaseinfo>
 <copyright>
-<year>2000–2016</year>
+<year>2000–2021</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -114,7 +114,7 @@ souboru (obvykle <filename>.shtml</filename>)</para>
 
 <example>
 <title>Vypsání aktuálního času</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head><title>První pokusný skript</title></head>
 <body>
@@ -240,7 +240,7 @@ int main()
    char s[80];
 
    printf("Content-type: text/html\n\n");
-   printf("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+   printf("<!DOCTYPE html>
 <html>
 <head><title>První pokusný skript</title></head>
 <body>
@@ -267,7 +267,7 @@ use CGI;
 
 print "Content-type: text/html\n\n";
 print <<EOF
-<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Obsluha formuláře</title>
@@ -518,7 +518,7 @@ roztroušená na mnoha místech</para>
 
 <example>
 <title>Vypsání aktuálního času v ASP</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head><title>První pokusný skript</title></head>
 <body>
@@ -544,7 +544,7 @@ roztroušená na mnoha místech</para>
 
 <example>
 <title>Obsluha dat z formuláře</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head>
 <title>Ukázkový formulář</title>
@@ -601,7 +601,7 @@ libovolným serverem na libovolné platformě</para>
 
 <example>
 <title>Vypsání aktuálního času</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head><title>První pokusný skript</title></head>
 <body>
@@ -623,7 +623,7 @@ libovolným serverem na libovolné platformě</para>
 
 <example>
 <title>Obsluha dat z formuláře</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head>
 <title>Ukázkový formulář</title>
@@ -699,7 +699,7 @@ do Javy, zkompiluje do byte-code a spustí</para>
 <example>
 <title>Vypsání aktuálního času</title>
 <programlisting><![CDATA[<%@ page language="java" import="java.text.*, java.util.*" %>
-<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<!DOCTYPE html>
 <html>
 <head><title>První pokusný skript</title></head>
 <body>
@@ -715,7 +715,7 @@ do Javy, zkompiluje do byte-code a spustí</para>
 
 <example>
 <title>Obsluha dat z formuláře</title>
-<programlisting><![CDATA[<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<programlisting><![CDATA[<!DOCTYPE html>
 <html>
 <head>
 <title>Ukázkový formulář</title>
@@ -1040,3 +1040,7 @@ xl:href="http://zdrojak.root.cz/clanky/django-uvod-a-instalace/">seriál o Djang
 </s:foilgroup>
 
 </s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
