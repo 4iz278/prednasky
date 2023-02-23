@@ -5,9 +5,9 @@
 <title>Protokol HTTP</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2021-03-08 09:52:48 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2023-02-23 18:25:19 UTC</releaseinfo>
 <copyright>
-<year>2000–2021</year>
+<year>2000–2023</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -40,9 +40,6 @@ přináší problémy pro webové aplikace</para>
       <listitem>
 	<para>několik verzí – HTTP 0.9, HTTP 1.0, HTTP
 1.1, HTTP/2, připravuje se HTTP/3</para>
-      </listitem>
-      <listitem>
-	<para>HTTP/2 – novinka roku 2015, podpora většina prohlížečů a čím dál více serverů</para>
       </listitem>
     </itemizedlist>
 
@@ -809,6 +806,36 @@ zůstávají u klienta a jsou přístupná pouze pomocí JavaScriptu</para>
 </s:foilgroup>
 
 <s:foilgroup>
+<title>Novější verze HTTP</title>
+
+<s:foil>
+<title>HTTP/2</title>
+
+<itemizedlist>
+<listitem><para>protokol je vnitřně binární, ale navenek (API) se chová analogicky jako předchozí verze</para></listitem>
+<listitem><para>díky multiplexování může paralelně přenášet data po jednom spojení</para></listitem>
+<listitem><para>podporuje komprimaci hlaviček</para></listitem>
+<listitem><para>server může posílat data klientovi dříve než si je klient vyžádá (push)</para></listitem>
+<listitem><para>většina implementací dovoluje jen šifrovaný přenos dat (TLS)</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+<s:foil>
+<title>HTTP/3</title>
+
+<itemizedlist>
+<listitem><para>další vylepšení zejména s ohledem na zvýšení rychlosti a snížení latence</para></listitem>
+<listitem><para>místo TCP se pro přenos dat používá protokol QUIC, což
+je „reimplementace efektivnějšího TCP nad UDP“</para></listitem>
+<listitem><para>těsnější integrace s TLS</para></listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
 <title>Další zdroje informací</title>
 
 <s:foil>
@@ -823,6 +850,7 @@ zůstávají u klienta a jsou přístupná pouze pomocí JavaScriptu</para>
 <para><link xl:href="https://tools.ietf.org/html/rfc2616">HTTP 1.1</link></para>
 </listitem>
 <listitem><para><link xl:href="https://http2.github.io/">HTTP/2</link></para></listitem>
+<listitem><para><link xl:href="https://www.smashingmagazine.com/2021/08/http3-core-concepts-part1/">HTTP/3 From A To Z: Core Concepts</link></para></listitem>
 <listitem>
 <para><link xl:href="https://tools.ietf.org/html/rfc6265">Specifikace cookies</link></para>
 </listitem>
