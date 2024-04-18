@@ -5,9 +5,9 @@
 <title>Bezpečnost webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2020-04-02 23:10:43 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2024-04-18 19:40:58 UTC</releaseinfo>
 <copyright>
-<year>2000–2020</year>
+<year>2000–2024</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -280,7 +280,7 @@ bezpečnosti, např. internetové bankovnictví</para>
 <listitem><para>definuje API, pomocí kterého lze generovat páry privátní/veřejný klíč pro každou aplikaci</para></listitem>
 <listitem><para>přihlašování pak probíhá automaticky podepsáním dat privátním klíčem bez nutnosti zadávat heslo</para></listitem>
 <listitem><para>privátní klíče se ukládají na HW token nebo se vše integruje s funkcemi OS – např. FaceID, čtečka otisku prstu, …</para></listitem>
-<listitem><para><link xl:href="https://webauthn.guide/">popis toho, jak funguje WebAuthnWeb Authentication</link></para></listitem>
+<listitem><para><link xl:href="https://webauthn.guide/">popis toho, jak funguje WebAuthn Authentication</link></para></listitem>
 </itemizedlist>
 
 </s:foil>
