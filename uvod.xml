@@ -5,9 +5,9 @@
 <title>Úvodní přednáška</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2021-02-16 11:02:34 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2025-02-20 18:43:32 UTC</releaseinfo>
 <copyright>
-<year>2000–2021</year>
+<year>2000–2025</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -94,7 +94,7 @@
 <para>hodnotí přednášející</para>
 </listitem>
 <listitem>
-<para>max. 40 bodů</para>
+<para>max. 30 bodů</para>
 </listitem>
 <listitem>
 <para>obsah testu: látka z přednášek a povinné četby</para>
@@ -110,7 +110,15 @@
 </itemizedlist>
 </listitem>
 <listitem>
-<para>každý dílčí požadavek je nutné splnit alespoň na 50 % bodů</para>
+<para>opakovací testy na přednáškách</para>
+<itemizedlist>
+<listitem>
+<para>max. 10 bodů</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para>požadavky 1 a 2 je nutné splnit alespoň na 50 % bodů</para>
 </listitem>
 </orderedlist>
 
@@ -174,6 +182,8 @@
 <listitem><para>server-side aplikace</para></listitem>
 <listitem><para>aplikace běžící v prohlížeči</para></listitem>
 <listitem><para>kombinace</para></listitem>
+<listitem><para>MPA – Multi-page application</para></listitem>
+<listitem><para>SPA – Single-page application</para></listitem>
 <listitem><para>využití REST API</para></listitem>
 </itemizedlist>
 
