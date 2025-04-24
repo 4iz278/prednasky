@@ -5,9 +5,9 @@
 <title>Bezpečnost webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2024-04-18 19:40:58 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2025-04-24 19:28:00 UTC</releaseinfo>
 <copyright>
-<year>2000–2024</year>
+<year>2000–2025</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -813,7 +813,7 @@ diskusní fóra, …)</para>
 <itemizedlist>
 <listitem>
 <para><link
-xl:href="https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf">Deset
+xl:href="https://owasp.org/www-project-top-ten/">Deset
 nejčastějších bezpečnostních slabin</link></para>
 </listitem>
 </itemizedlist>
