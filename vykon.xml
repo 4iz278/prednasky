@@ -5,9 +5,9 @@
 <title>Výkon webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<!--<releaseinfo>Poslední modifikace: $Date: 2015/09/24 20:39:52 $</releaseinfo>-->
+<releaseinfo>Poslední modifikace: 2025-05-08 12:59:04 UTC</releaseinfo>
 <copyright>
-<year>2000–2019</year>
+<year>2000–2015</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -39,7 +39,9 @@
 <title>Zmenšení objemu přenášených dat</title>
 
 <itemizedlist>
-<listitem><para>nepřenášíme to, co není potřeba (např. lazy-loading obrázků do karuselu)</para></listitem>
+<listitem><para>nepřenášíme to, co není potřeba (např. lazy-loading obrázků do karuselu)</para>
+<programlisting><![CDATA[<img loading="lazy" src="obrazek.jpg" alt="Popis">]]></programlisting>
+</listitem>
 <listitem><para>minifikace HTML/CSS/JS kódu</para></listitem>
 <listitem><para>komprimace přenášených dat (GZIP)</para></listitem>
 <listitem><para>obrázky SVG ukládat jako komprimované (<code>.svgz</code>)</para></listitem>
@@ -74,7 +76,7 @@
 <listitem><para>prefetch – nápověda pro prohlížeč, na co se má připravit</para>
 <programlisting><![CDATA[<link rel="prefetch" href="http://www.example.com/">
 <link rel="dns-prefetch" href="http://example.com/">
-<link rel="prerender" href="/page/to/prerender">]]></programlisting>
+<link rel="preconnect" href="/page/to/prerender">]]></programlisting>
 </listitem>
 <listitem><para>minimalizace přenášených hlaviček HTTP (velikost cookies, zbytečné hlavičky, …)</para></listitem>
 </itemizedlist>
@@ -82,7 +84,7 @@
 </s:foil>
 
 <s:foil>
-<title>HTTP/2</title>
+<title>HTTP/2 a HTTP/3</title>
 
 <itemizedlist>
 <listitem><para>nová verze protokolu HTTP odstraňující zejména výkonostní problémy předchozích verzí</para></listitem>
@@ -90,7 +92,7 @@
 <listitem><para>multiplexing – po jednom TCP spojení se paralelně a asynchronně přenáší více objektů</para></listitem>
 <listitem><para>server push – server může poslat do prohlížeče data dříve než si je prohlížeč vyžádá</para></listitem>
 <listitem><para>komprimace hlaviček</para></listitem>
-<listitem><para>většina „optimalizačních technik“ pro HTTP/1.x nedává při použití HTTP/2 smysl</para></listitem>
+<listitem><para>většina „optimalizačních technik“ pro HTTP/1.x nedává při použití HTTP/2 a HTTP/3 smysl</para></listitem>
 </itemizedlist>
 
 </s:foil>
@@ -206,3 +208,7 @@ echo $products;]]></programlisting>
 </s:foilgroup>
 
 </s:slides>
+<!-- Local Variables: -->
+<!-- time-stamp-pattern: "10/<releaseinfo>Poslední modifikace: %:y-%02m-%02d %02H:%02M:%02S %Z</releaseinfo>" -->
+<!-- time-stamp-time-zone: "UTC" -->
+<!-- End: -->
