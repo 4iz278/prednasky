@@ -5,9 +5,9 @@
 <title>Nástroje a přístupy pro tvorbu webových aplikací</title>
 <subtitle>4IZ278 – Webové aplikace</subtitle>
 <author><personname>Jirka Kosek</personname></author>
-<releaseinfo>Poslední modifikace: 2021-03-15 11:56:18 UTC</releaseinfo>
+<releaseinfo>Poslední modifikace: 2026-03-19 17:28:01 UTC</releaseinfo>
 <copyright>
-<year>2000–2021</year>
+<year>2000–2026</year>
 <holder>Jiří Kosek</holder>
 </copyright>
 </info>
@@ -757,9 +757,6 @@ Language) – obdoba javového bytecode</para>
 <para>před spuštěním je vždy CIL převeden do nativního kódu (obdoba
 JIT kompilace v Javě)</para>
 </listitem>
-<listitem>
-<para>Microsoft nabízí CLR pro Windows; existují i run-time pro další systémy (např. Mono pro Linux)</para>
-</listitem>
 </itemizedlist>
 </listitem>
 <listitem>
@@ -804,6 +801,39 @@ generovaný HTML a JavaScriptový kód</para>
 </listitem>
 <listitem>
 <para>později byly pro ASP.NET vytvořeny další nastavby – např. ASP.NET MVC nebo Razor</para>
+</listitem>
+</itemizedlist>
+
+</s:foil>
+
+</s:foilgroup>
+
+<s:foilgroup>
+<title>Serverless přístup</title>
+
+<s:foil>
+<title>Serverless</title>
+
+<itemizedlist>
+<listitem>
+<para>neznamená psaní aplikace „bez serveru“</para>
+</listitem>
+<listitem>
+<para>backendová funkcionalita běží v cloudu, nemusíme se starat o infrastrukturu, webserver, …</para>
+</listitem>
+<listitem>
+<para>na cloud nahrajeme jen požadovanou funkci nebo kontejner</para>
+</listitem>
+<listitem>
+<para>různé implementace</para>
+<itemizedlist>
+<listitem><para>AWS lambda + API gateway</para></listitem>
+<listitem><para>Google Cloud Functions + API Gateway</para></listitem>
+<listitem><para>Google Cloud Run</para></listitem>
+<listitem><para>Azure Functions + Azure API Management</para></listitem>
+<listitem><para>Cloudflare Workers</para></listitem>
+<listitem><para>…</para></listitem>
+</itemizedlist>
 </listitem>
 </itemizedlist>
 
