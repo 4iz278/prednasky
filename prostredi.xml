@@ -312,7 +312,7 @@ EOF
 </itemizedlist>
 </listitem>
 <listitem>
-<para>nevýhody</para>
+<para>nevýhody:</para>
 <itemizedlist>
 <listitem>
 <para>pro obsluhu každého požadavku je spouštěn nový proces</para>
