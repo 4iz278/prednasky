@@ -696,7 +696,7 @@ požadavku/odpovědi</para>
 </listitem>
 <listitem>
 <para>podporu cookies lze v prohlížeči vypnout, proto by dobře napsaná
-aplikace měla fungovat i bez nic</para>
+aplikace měla fungovat i bez nich</para>
 </listitem>
 </itemizedlist>
 
